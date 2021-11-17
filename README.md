@@ -42,7 +42,7 @@
     - [管理者側](https://drive.google.com/file/d/18GXDIDS4ew5d8Bo08sRE58i-xvc7ggbt/view?usp=sharing)
 - [ER図](https://app.diagrams.net/#G101-VEWajDF5Os07ogFXGQhSj5vQlW24T)
 - [テーブル定義書](https://docs.google.com/spreadsheets/d/1vpu2JEOMfGRNMmJ0IlxvuerfNxHbZy5hgQvVizzXkc0/edit?usp=sharing)
-- 未着手[アプリケーション詳細設計](https://docs.google.com/spreadsheets/d/10_a5xxnsgidroidpTSMcFmeTdKzugFEN/edit?usp=sharing&ouid=112204990398560162009&rtpof=true&sd=true)
+- [アプリケーション詳細設計](https://docs.google.com/spreadsheets/d/10_a5xxnsgidroidpTSMcFmeTdKzugFEN/edit?usp=sharing&ouid=112204990398560162009&rtpof=true&sd=true)
 
 ## チャレンジ要素一覧
 <https://docs.google.com/spreadsheets/d/1lwIlwItBYlEIK2DCFUPcZWzLjwV8VuEpqazJ_Ki0MHk/edit?usp=sharing>
