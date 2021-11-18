@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_18_050124) do
+ActiveRecord::Schema.define(version: 2021_11_18_065328) do
+
+  create_table "achievement_rates", force: :cascade do |t|
+    t.integer "staff_id"
+    t.integer "question_id"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string "encrypted_password", default: "", null: false
@@ -22,6 +30,36 @@ ActiveRecord::Schema.define(version: 2021_11_18_050124) do
     t.datetime "updated_at", null: false
     t.index ["employ_number"], name: "index_admins_on_employ_number", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "choices", force: :cascade do |t|
+    t.integer "question_id"
+    t.text "content"
+    t.boolean "is_answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "correct_answer_rates", force: :cascade do |t|
+    t.integer "staff_id"
+    t.integer "question_id"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.text "content", null: false
+    t.string "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "staffs", force: :cascade do |t|
