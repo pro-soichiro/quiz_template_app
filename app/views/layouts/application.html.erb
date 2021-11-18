@@ -12,9 +12,9 @@
   <body>
     <header>
       <% if staff_signed_in? %>
-        <%= link_to "マイページ", root_path %>
-        <%= link_to "問題を解く", root_path %>
-        <%= link_to "ランキング", root_path %>
+        <%= link_to "マイページ", staff_path(current_staff) %>
+        <%= link_to "問題を解く", staff_path(current_staff) %>
+        <%= link_to "ランキング", staff_path(current_staff) %>
         <%= link_to "ログアウト", destroy_staff_session_path, method: :delete %>
       <% elsif admin_signed_in? then %>
         <%= link_to "スタッフ一覧", admin_staffs_path %>
@@ -22,7 +22,7 @@
         <%= link_to "問題一覧", admin_questions_path %>
         <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
       <% else %>
-        <%= link_to "About", public_homes_about_path %>
+        <%= link_to "About", homes_about_path %>
         <%= link_to "新規登録", new_staff_registration_path %>
         <%= link_to "ログイン", new_staff_session_path %>
       <% end %>

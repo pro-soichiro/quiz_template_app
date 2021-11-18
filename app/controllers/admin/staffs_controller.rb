@@ -1,5 +1,5 @@
 class Admin::StaffsController < ApplicationController
-  def top
+  def index
   end
 
   def show

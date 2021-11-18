@@ -1,0 +1,18 @@
+<h2>管理者ログイン</h2>
+<%= form_with model: @admin, url: admin_session_path, local: true do |f| %>
+  <table>
+    <tr>
+      <th>Employ Number</th>
+      <td colspan="2"><%= f.text_field :employ_number,:placeholder =>"000" %></td>
+    </tr>
+    <tr>
+      <th>パスワード(6文字以上)</th>
+      <td colspan="2"><%= f.password_field :password %></td>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <%= f.submit "ログイン" %>
+  </div>
+<% end %>
+

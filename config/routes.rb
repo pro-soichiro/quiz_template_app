@@ -1,54 +1,32 @@
 Rails.application.routes.draw do
 
+  devise_for :admin, skip: [:passwords] ,controllers: {
+    registrations: 'admin/registrations',
+    sessions: 'admin/sessions',
+  }
+
   namespace :admin do
-    get 'staffs/top'
-    get 'staffs/show'
-    get 'staffs/update'
-
-    get 'questions/index'
-    get 'questions/new'
-    get 'questions/create'
-    get 'questions/edit'
-    get 'questions/update'
-    get 'questions/destroy'
-
-    get 'achievement_rates/create'
-    get 'achievement_rates/update'
-
-    get 'correct_answer_rates/create'
-
-    get 'categories/index'
-    get 'categories/create'
-    get 'categories/edit'
-    get 'categories/update'
-
-
+    resources :staffs, only: [:index,:show,:update]
+    resources :questions, only: [:index,:new,:create,:edit,:update,:destory]
+    resources :categories, only: [:index,:create,:edit,:update,:destory]
+    resources :correct_answer_rates, only:[:create]
+    resources :achievement_rates, only:[:create,:update]
   end
-  root to: "public/homes#about"
-  namespace :public do
+
+  devise_for :staffs, skip: [:passwords,] ,controllers: {
+    registrations: 'public/registrations',
+    sessions: 'public/sessions',
+  }
+
+  scope module: :public do
+    root 'homes#about'
     get 'homes/about'
-    root to: "homes#about"
-
-    get 'correct_answer_rates/index'
-
+    resources :staffs, only: [:show,:index,:edit,:update]
     get 'questions/categories'
-    get 'questions/new'
+    resources :questions, only: [:new]
     get 'questions/answer'
     get 'questions/result'
-
-    get 'staffs/show'
-    get 'staffs/index'
-    get 'staffs/edit'
+    resources :correct_answer_rates, only: [:index]
   end
-  devise_for :admins, controllers: {
-    sessions:      'admins/sessions',
-    passwords:     'admins/passwords',
-    registrations: 'admins/registrations'
-  }
-  devise_for :staffs, controllers: {
-    sessions:      'staffs/sessions',
-    passwords:     'staffs/passwords',
-    registrations: 'staffs/registrations'
-  }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
 end

@@ -1,8 +1,5 @@
-<h2>ログイン</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "staffs/shared/error_messages", resource: resource %>
-
+<h2>ログイン　テスト</h2>
+<%= form_with model: @staff, url: staff_session_path, local: true do |f| %>
   <table>
     <tr>
       <th>Employ Number</th>
@@ -19,4 +16,3 @@
   </div>
 <% end %>
 
-<%= render "staffs/shared/links" %>
