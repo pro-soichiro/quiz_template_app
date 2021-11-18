@@ -1,2 +1,34 @@
 <h1>Admin::Staffs#index</h1>
 <p>Find me in app/views/admin/staffs/index.html.erb</p>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>EN</th>
+      <th>名前</th>
+      <th>達成率</th>
+      <th>正答率</th>
+      <th>最終ログイン日時</th>
+      <th>スタッフステータス</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @staffs.each do |staff| %>
+      <tr>
+        <td><%= staff.employ_number %></td>
+        <td><%= link_to staff.full_name,admin_staff_path(staff) %></td>
+        <td>達成率</td>
+        <td>正答率</td>
+        <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
+        <td>
+          <% if staff.status? %>
+  					<span class="text-active">従事中</span>
+  				<% else %>
+  					<span class="text-invalid">退職</span>
+  				<% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
