@@ -5,4 +5,6 @@ class Question < ApplicationRecord
   has_many :correct_answer_rates,   dependent: :destroy
 
   belongs_to :category
+
+  attachment :image
 end

@@ -22,9 +22,12 @@
         <td>正答率</td>
         <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
         <td>
-          <% if staff.status? %>
-  					<span class="text-active">従事中</span>
-  				<% else %>
+          <!--実装途中-->
+  				<% if staff.status == true && staff_signed_in? == true %>
+    				<span class="text-login">ログイン中</span>
+  				<% elsif staff.status == true && staff_signed_in? == false %>
+    				<span class="text-logout">ログアウト</span>
+    			<% else %>
   					<span class="text-invalid">退職</span>
   				<% end %>
         </td>

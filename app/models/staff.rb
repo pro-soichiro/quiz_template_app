@@ -6,12 +6,13 @@ class Staff < ApplicationRecord
 
   has_many :achievement_rates,      dependent: :destroy
   has_many :correct_answer_rates,  dependent: :destroy
-
+  attachment :image
 
   def full_name
     last_name + " " + first_name
   end
-  
 
-  
+
+
+
 end
