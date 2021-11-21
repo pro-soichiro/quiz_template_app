@@ -1,0 +1,6 @@
+<%= form_with(model: category, url: url, local: true) do |f| %>
+  <%= render 'layouts/error_messages', resource: category %>
+  <%= f.label :name, 'カテゴリ名' %>
+  <%= f.text_field :name,:placeholder => "カテゴリ名" %>
+  <%= f.submit submit %>
+<% end %>

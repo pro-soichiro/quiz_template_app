@@ -1,4 +1,5 @@
 class Admin::StaffsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :ensure_staff, only: [:show,:update]
 
   def index
@@ -10,14 +11,9 @@ class Admin::StaffsController < ApplicationController
 
   def update
     if @staff.status?
-      # binding.pry
       @staff.update_columns(status: false)
-      # @staff.status = false
-      # @staff.save
     else
       @staff.update_columns(status: true)
-      # @staff.status = true
-      # @staff.save
     end
     redirect_to admin_staff_path(@staff)
   end
@@ -29,6 +25,6 @@ class Admin::StaffsController < ApplicationController
   end
 
   def staff_params
-    params.require(:staff).permit(:id,:status,:employ_number)
+    params.require(:staff).permit(:status,:employ_number)
   end
 end
