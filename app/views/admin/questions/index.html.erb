@@ -1,2 +1,27 @@
-<h1>Admin::Questions#index</h1>
-<p>Find me in app/views/admin/questions/index.html.erb</p>
+<h2>問題一覧画面</h2>
+<div class="sidebar">
+  <% @categories.each do |category| %>
+    <%= link_to category.name , admin_questions_path(category_id: category.id) %>
+  <% end %>
+
+</div>
+<div class="content">
+
+	<% if params[:category_id] %>
+		<h2><%= @category.name %> 問題数<%= @all_questions_count %>問</h2>
+	<% else %>
+		<h2>最近追加された問題 全<%= @all_questions_count %>問</h2>
+	<% end %>
+
+	<h3 class="text-right">
+		<%= link_to "新規作成", new_admin_question_path %>
+	</h3>
+
+	<% if @questions.first %>
+		<%= render 'admin/questions/index', questions: @questions %>
+		<%= paginate @questions %>
+	<% else %>
+		<h3>問題はまだありません。</h3>
+	<% end %>
+
+</div>

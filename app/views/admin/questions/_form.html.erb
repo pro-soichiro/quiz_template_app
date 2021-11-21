@@ -1,0 +1,38 @@
+<%= form_with(model: question, url: url, local: true) do |f| %>
+	<%= render 'layouts/error_messages', resource: question %>
+	<%= f.fields_for :choices do |i| %>
+
+	<div>CSVで読み込む機能</div>
+
+	<div class="flex">
+		<table>
+			<thead>
+				<tr>
+					<th><%= f.label :category_id, "カテゴリ" %></th>
+					<th><%= f.label :content, "問題文" %></th>
+					<th><%= f.label :image, "画像" %></th>
+					<th><%= i.label :content, "選択肢（正解）" %></th>
+					<th><%= i.label :content, "選択肢" %></th>
+					<th><%= i.label :content, "選択肢" %></th>
+					<th><%= i.label :content, "選択肢" %></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= f.collection_select :category_id, Category.all, :id, :name %></td>
+					<td><%= f.text_area :content, rows: 3 %></td>
+					<td><%= f.attachment_field :image %>画像を選択する</td>
+					
+					<td><%= i.text_field :content,:placeholder => "正解となる答えを入力してください" %></td>
+					<td><%= i.text_field :content,:placeholder => "不正解となる答えを入力してください"  %></td>
+					<td><%= i.text_field :content,:placeholder => "不正解となる答えを入力してください"  %></td>
+					<td><%= i.text_field :content,:placeholder => "不正解となる答えを入力してください"  %></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<%= f.submit submit %>
+	</div>
+  <% end %>
+<% end %>

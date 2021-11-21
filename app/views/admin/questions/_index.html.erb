@@ -1,0 +1,27 @@
+<table>
+	<thead>
+		<tr>
+			<th>問題番号</th>
+			<th>問題文</th>
+			<th>選択肢</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% questions.each do |question| %>
+			<tr>
+				<td><%= question.id %></td>
+				<td><%= question.content %></td>
+				<td>
+				  <% question.choices.each do |choice| %>
+            <%= choice.content %>
+          <% end %>
+				</td>
+				<td>
+				  <%= link_to "編集", admin_question_path(question) %>
+				  <%= link_to "削除", admin_question_path(question),method: :delete %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
