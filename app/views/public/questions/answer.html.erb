@@ -1,2 +1,4 @@
-<h1>Public::Questions#answer</h1>
-<p>Find me in app/views/public/questions/answer.html.erb</p>
+<h2><%= @category.name %></h2>
+<% @questions.each do |question| %>
+<%= question.question_text %>
+<% end %>

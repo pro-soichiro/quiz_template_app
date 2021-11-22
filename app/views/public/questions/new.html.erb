@@ -1,1 +1,11 @@
-<h2><%= @questions.category.name %></h2>
+<h2><%= @category.name %></h2>
+
+<p>
+  この問題は【<%= @category.name %>】です。<br />
+  問題は全部で10問あります。<br />
+  <br />
+  解答を始める場合は、開始ボタンから始めてください。
+</p>
+
+<%= link_to "問題カテゴリ選択画面へ",questions_categories_path %>
+<%= link_to "開始",questions_answer_path %>

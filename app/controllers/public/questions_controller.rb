@@ -6,7 +6,10 @@ class Public::QuestionsController < ApplicationController
   end
 
   def new
-    @questions = Question.find(category_id: params[:id])
+    # @categories = Category.all
+    # binding.pry
+    @category = Category.find(params[:category_id])
+    @questions = @category.questions
   end
 
   def answer
@@ -17,6 +20,6 @@ class Public::QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:category).premit(:id)
+    params.require(:category).premit(:id,:category_id)
   end
 end
