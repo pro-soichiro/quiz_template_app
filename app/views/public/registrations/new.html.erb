@@ -1,6 +1,6 @@
 <h2>新規会員登録</h2>
 <%= form_with model: @staff, url: staff_registration_path, local: true do |f| %>
-<%= render 'layouts/error_messages', resource: staff %>
+<%= render 'layouts/error_messages', resource: @staff %>
   <table>
     <tr>
       <th>名前</th>

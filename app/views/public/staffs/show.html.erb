@@ -1,2 +1,36 @@
-<h1>Public::Staffs#show</h1>
-<p>Find me in app/views/public/staffs/show.html.erb</p>
+<h2><%= @staff.full_name %></h2>
+<div>
+  canvasでChart.js
+  <div>
+    最終ログイン日時
+    <%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %>
+  </div>
+</div>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>名前</th>
+        <th>Employ Number</th>
+        <th>E-mail</th>
+        <th></th>
+        <th>誤答問題数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %></td>
+        <td><%= @staff.full_name %></td>
+        <td><%= @staff.employ_number %></td>
+        <td>
+          <%= link_to "⚙", edit_staff_path(@staff) %>
+        </td>
+        <td>
+          <%= link_to "間違えた問題を見る", staffs_path %>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
