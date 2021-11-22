@@ -16,17 +16,16 @@ class Admin::QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
-    @question.choices.build()
+    @question = QuestionChoice.new
   end
 
   def create
-    @question = Question.new(question_params)
-    if @question.save
+    # binding.pry
+    @question = QuestionChoice.new(question_params)
+    if @question.saves
       redirect_to admin_questions_path
     else
       @question = Question.new
-      @question.choices.build
       render :new
     end
   end
@@ -44,10 +43,13 @@ class Admin::QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit( :category_id,
-                                      :content,
+    params.require(:question_choice).permit(
+                                      :category_id,
+                                      :question_text,
                                       :image,
-                                      choices_attributes:[:question_id, :content, :is_answer])
+                                      :question_id,
+                                      :choice_text,
+                                      :is_answer)
   end
 
   def ensure_question

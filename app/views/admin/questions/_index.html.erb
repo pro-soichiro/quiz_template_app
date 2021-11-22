@@ -11,10 +11,13 @@
 		<% questions.each do |question| %>
 			<tr>
 				<td><%= question.id %></td>
-				<td><%= question.content %></td>
+				<td>
+					<%= question.question_text %>
+					<%= attachment_image_tag question,:image %>
+				</td>
 				<td>
 				  <% question.choices.each do |choice| %>
-            <%= choice.content %>
+            <%= choice.choice_text %>
           <% end %>
 				</td>
 				<td>
