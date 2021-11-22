@@ -1,0 +1,35 @@
+<%= form_for(staff, url: path, method: method) do |f| %>
+	<%= render 'layouts/error_messages', resource: staff %>
+
+  <table>
+    <thead>
+      <tr>
+        <th colspan="3">
+          <%= attachment_image_tag staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %>
+        </th>
+        <th>名前</th>
+        <th>フリガナ</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= f.text_field :last_name %></td>
+        <td><%= f.text_field :last_name_kana %></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>プロフィール画像</td>
+        <td><%= f.attachment_field :image %></td>
+        <td><%= f.text_field :first_name %></td>
+        <td><%= f.text_field :first_name_kana %></td>
+        <td><%= f.submit submit  %></td>
+      </tr>
+    </tbody>
+  </table>
+
+<% end %>

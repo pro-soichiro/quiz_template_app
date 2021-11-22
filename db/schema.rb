@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_043229) do
+ActiveRecord::Schema.define(version: 2021_11_22_145640) do
 
   create_table "achievement_rates", force: :cascade do |t|
     t.integer "staff_id"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_043229) do
     t.string "first_name", null: false
     t.string "last_name_kana", null: false
     t.string "first_name_kana", null: false
-    t.integer "employ_number", null: false
+    t.integer "employ_number"
     t.string "image_id"
     t.boolean "status", default: true, null: false
     t.datetime "created_at", null: false

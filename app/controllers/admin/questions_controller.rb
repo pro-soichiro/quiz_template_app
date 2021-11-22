@@ -33,7 +33,7 @@ class Admin::QuestionsController < ApplicationController
   end
 
   def update
-		if @question.update_attributes(question_params)
+		if @question.update(question_params)
 			redirect_to admin_questions_path
 		else
 			render :edit

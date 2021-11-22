@@ -1,17 +1,24 @@
 class Public::StaffsController < ApplicationController
   # before_action :authenticate_public!
-  before_action :ensure_staff, only: [:show,:update]
+  before_action :ensure_staff, only: [:show,:edit,:update]
 
   def index
   end
 
   def show
   end
-  
+
   def edit
+    # binding.pry
   end
 
   def update
+    # binding.pry
+    if @staff.update(staff_params)
+      redirect_to staff_path(@staff)
+    else
+      render :edit
+    end
   end
 
   private

@@ -1,2 +1,3 @@
-<h1>Public::Staffs#edit</h1>
-<p>Find me in app/views/public/staffs/edit.html.erb</p>
+<h2>マイページ 編集</h2>
+<%= render 'edit_form', staff: @staff, path: staff_path(@staff), submit: '変更を保存',method: :patch %>
+
