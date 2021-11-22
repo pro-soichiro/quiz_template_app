@@ -1,0 +1,34 @@
+<%= form_for(@question, url: path, method: method) do |f| %>
+	<%= render 'layouts/error_messages', resource: question %>
+
+	<div>CSVで読み込む機能</div>
+
+	<div class="flex">
+		<table>
+			<thead>
+				<tr>
+					<th>カテゴリ</th>
+					<th>問題文</th>
+					<th>画像</th>
+					<th>選択肢（正解）</th>
+					<th>選択肢</th>
+					<th>選択肢（正解）</th>
+					<th>選択肢（正解）</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= f.collection_select :category_id, Category.all, :id, :name %></td>
+					<td><%= f.text_area :question_text, rows: 3 %></td>
+					<td><%= f.attachment_field :image %>画像を選択する</td>
+					<%= f.fields_for :choices do |choice| %>
+				    <%= render 'choices_fields',f: choice %>
+				  <% end %>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<%= f.submit submit %>
+	</div>
+<% end %>

@@ -7,5 +7,9 @@ class Question < ApplicationRecord
 
   attachment :image
 
+  validates :category_id, presence: true
+  validates :question_text, presence: true
+
+	accepts_nested_attributes_for :choices , allow_destroy: true
 
 end

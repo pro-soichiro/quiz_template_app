@@ -1,2 +1,2 @@
-<h1>Admin::Questions#edit</h1>
-<p>Find me in app/views/admin/questions/edit.html.erb</p>
+<h2>問題 編集</h2>
+<%= render 'edit_form', question: @question, path: admin_question_path, submit: '保存する',method: :patch %>

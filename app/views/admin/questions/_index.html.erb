@@ -12,16 +12,20 @@
 			<tr>
 				<td><%= question.id %></td>
 				<td>
+					<%= attachment_image_tag question,:image, :fill, 100, 100,format: 'jpeg' %>
 					<%= question.question_text %>
-					<%= attachment_image_tag question,:image %>
 				</td>
 				<td>
 				  <% question.choices.each do |choice| %>
-            <%= choice.choice_text %>
+				  	<% if choice.is_answer? %>
+            	<%= '正解 ' + choice.choice_text %><br />
+            <% else %>
+            	<%= choice.choice_text %><br />
+            <% end %>
           <% end %>
 				</td>
 				<td>
-				  <%= link_to "編集", admin_question_path(question) %>
+				  <%= link_to "編集", edit_admin_question_path(question) %>
 				  <%= link_to "削除", admin_question_path(question),method: :delete %>
 				</td>
 			</tr>

@@ -1,2 +1,2 @@
 <h2>問題 新規作成</h2>
-<%= render 'form', question: @question, url: admin_questions_path, submit: '新規作成' %>
+<%= render 'new_form',question: @question, path: admin_questions_path, submit: '新規作成',method: :post %>

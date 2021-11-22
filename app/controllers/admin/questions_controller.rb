@@ -16,43 +16,48 @@ class Admin::QuestionsController < ApplicationController
   end
 
   def new
-    @question = QuestionChoice.new
+    @question = Form::Question.new()
+  end
+
+  def edit
+		@question = Form::Question.find(params[:id])
   end
 
   def create
-    # binding.pry
-    @question = QuestionChoice.new(question_params)
-    if @question.saves
+    @question = Form::Question.new(question_params)
+    if @question.save
       redirect_to admin_questions_path
     else
-      @question = Question.new
       render :new
     end
   end
 
-  def edit
-  end
-
   def update
+		if @question.update_attributes(question_params)
+			redirect_to admin_questions_path
+		else
+			render :edit
+		end
   end
 
   def destroy
+		Question.find(params[:id]).destroy
+		redirect_to admin_questions_path
   end
 
 
   private
 
   def question_params
-    params.require(:question_choice).permit(
-                                      :category_id,
-                                      :question_text,
-                                      :image,
-                                      :question_id,
-                                      :choice_text,
-                                      :is_answer)
+    params
+			.require(:form_question)
+			.permit(
+				Form::Question::REGISTRABLE_ATTRIBUTES +
+				[choices_attributes: Form::Choice::REGISTRABLE_ATTRIBUTES]
+			)
   end
 
   def ensure_question
-    @question = Question.find(params[:id])
+    @question = Form::Question.find(params[:id])
   end
 end
