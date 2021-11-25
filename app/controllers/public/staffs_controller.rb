@@ -6,15 +6,34 @@ class Public::StaffsController < ApplicationController
   end
 
   def show
+
+    @categories = Category.all
+
+    gon.categories = @categories.pluck(:name).map(&:to_s)
+    myAchievement = []
+    total = []
+    gon.myARates = []
+    gon.myARatesMinus = []
+
+    @myAchievement = AchievementRate.where(staff_id: @staff)
+
+    @categories.each do |category|
+      total << category.questions.count
+      myAchievement << @myAchievement.where(category_id: category.id).count
+    end
+
+    @categories.length.times do |i|
+      gon.myARates << (myAchievement[i].to_f / total[i] * 100 ).floor
+      gon.myARatesMinus << 100 - (myAchievement[i].to_f / total[i] * 100 ).floor
+    end
+
   end
 
   def edit
-    # binding.pry
   end
 
   def update
-    # binding.pry
-    if @staff.update(staff_params)
+    if @staff.update_columns(staff_params)
       redirect_to staff_path(@staff)
     else
       render :edit

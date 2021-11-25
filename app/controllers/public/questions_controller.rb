@@ -6,14 +6,17 @@ class Public::QuestionsController < ApplicationController
   end
 
   def new
-    # @categories = Category.all
-    # binding.pry
     @category = Category.find(params[:category_id])
     @questions = @category.questions
   end
 
   def answer
+    @category = Category.find(params[:category_id])
+    @question = @category.questions.order("RANDOM()").first
+    # binding.pry
+    gon.choices = @question.choices
   end
+
 
   def result
   end

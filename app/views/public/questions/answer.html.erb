@@ -1,4 +1,8 @@
 <h2><%= @category.name %></h2>
-<% @questions.each do |question| %>
-<%= question.question_text %>
-<% end %>
+<p>
+  <%= @question.question_text %>
+  <span>問題番号(<%= @question.id %>)</span>
+</p>
+<ul id="choices"></ul>
+<div id="btn" class="disabled">Next</div>
+

@@ -1,6 +1,7 @@
 <h2><%= @staff.full_name %></h2>
 <div>
-  canvasでChart.js
+  <canvas id="myChart"></canvas>
+  <script>draw_graph();</script>
   <div>
     最終ログイン日時
     <%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %>

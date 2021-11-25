@@ -6,6 +6,6 @@
   <br />
   解答を始める場合は、開始ボタンから始めてください。
 </p>
-
+<input class="button" type="button" value="button">
 <%= link_to "問題カテゴリ選択画面へ",questions_categories_path %>
-<%= link_to "開始",questions_answer_path %>
+<%= link_to "開始",questions_answer_path(category_id: @category.id) %>

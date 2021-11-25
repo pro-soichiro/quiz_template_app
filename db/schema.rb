@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_145640) do
+ActiveRecord::Schema.define(version: 2021_11_25_092242) do
 
   create_table "achievement_rates", force: :cascade do |t|
     t.integer "staff_id"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_145640) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
   end
 
   create_table "admins", force: :cascade do |t|

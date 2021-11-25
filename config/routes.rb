@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :questions, only: [:new]
     get 'questions/answer'
     get 'questions/result'
+    resources :achievement_rates, only:[:create,:update]
     resources :correct_answer_rates, only: [:index]
   end
 

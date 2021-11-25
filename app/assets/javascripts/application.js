@@ -10,7 +10,21 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
+//= require Chart.min
+//= require jquery
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+$(document).on('turbolinks:load', function() {
+  $(document).ready(function () {
+
+    $.each(gon.choices, function(index, value){
+      $("<li>", {
+        text: value.choice_text
+      }).appendTo('#choices');
+    })
+
+  });
+});
