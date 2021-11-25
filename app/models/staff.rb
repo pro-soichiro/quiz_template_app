@@ -12,7 +12,6 @@ class Staff < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
   validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
-  validates :employ_number, presence: true, uniqueness: true, on: :create
   validates :email, presence: true, uniqueness: true
 
   def full_name

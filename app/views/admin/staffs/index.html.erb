@@ -1,11 +1,7 @@
-<h1>Admin::Staffs#index</h1>
-<p>Find me in app/views/admin/staffs/index.html.erb</p>
-
-
 <table>
   <thead>
     <tr>
-      <th>EN</th>
+      <th></th>
       <th>名前</th>
       <th>達成率</th>
       <th>正答率</th>
@@ -16,7 +12,7 @@
   <tbody>
     <% @staffs.each do |staff| %>
       <tr>
-        <td><%= staff.employ_number %></td>
+        <td><%= staff.id %></td>
         <td><%= link_to staff.full_name,admin_staff_path(staff) %></td>
         <td>達成率</td>
         <td>正答率</td>

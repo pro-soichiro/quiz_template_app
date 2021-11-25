@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_092242) do
+ActiveRecord::Schema.define(version: 2021_11_25_153841) do
 
   create_table "achievement_rates", force: :cascade do |t|
     t.integer "staff_id"
@@ -26,10 +26,9 @@ ActiveRecord::Schema.define(version: 2021_11_25_092242) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "employ_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["employ_number"], name: "index_admins_on_employ_number", unique: true
+    t.string "email"
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
@@ -53,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_092242) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 2021_11_25_092242) do
     t.string "first_name", null: false
     t.string "last_name_kana", null: false
     t.string "first_name_kana", null: false
-    t.integer "employ_number"
     t.string "image_id"
     t.boolean "status", default: true, null: false
     t.datetime "created_at", null: false
@@ -84,7 +83,6 @@ ActiveRecord::Schema.define(version: 2021_11_25_092242) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.index ["email"], name: "index_staffs_on_email", unique: true
-    t.index ["employ_number"], name: "index_staffs_on_employ_number", unique: true
     t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 

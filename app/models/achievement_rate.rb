@@ -1,5 +1,5 @@
 class AchievementRate < ApplicationRecord
   belongs_to :staff
   belongs_to :question
-  belongs_to :achievement_rate, optional: true
+  belongs_to :category
 end

@@ -33,7 +33,10 @@ class Public::StaffsController < ApplicationController
   end
 
   def update
-    if @staff.update_columns(staff_params)
+    # binding.pry
+    if @staff.update(staff_params)
+      Rails.logger.debug "@staff : #{@staff.inspect}"
+    # binding.pry
       redirect_to staff_path(@staff)
     else
       render :edit
@@ -42,17 +45,16 @@ class Public::StaffsController < ApplicationController
 
   private
 
-  def ensure_staff
-    @staff = Staff.find(params[:id])
-  end
-
   def staff_params
-    params.require(:staff).permit(:last_name,
+    params.require(:staff).permit(:id,
+                                  :last_name,
                                   :last_name_kana,
                                   :first_name,
                                   :first_name_kana,
-                                  :email,
-                                  :employ_number,
                                   :image)
+  end
+
+  def ensure_staff
+    @staff = Staff.find(params[:id])
   end
 end

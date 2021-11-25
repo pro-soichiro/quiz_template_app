@@ -13,7 +13,6 @@
       <tr>
         <th></th>
         <th>名前</th>
-        <th>Employ Number</th>
         <th>E-mail</th>
         <th></th>
         <th>誤答問題数</th>
@@ -23,7 +22,7 @@
       <tr>
         <td><%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %></td>
         <td><%= @staff.full_name %></td>
-        <td><%= @staff.employ_number %></td>
+        <td><%= @staff.email %></td>
         <td>
           <%= link_to "⚙", edit_staff_path(@staff) %>
         </td>
