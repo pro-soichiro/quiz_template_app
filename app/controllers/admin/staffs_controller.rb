@@ -7,13 +7,20 @@ class Admin::StaffsController < ApplicationController
   end
 
   def show
-    @categories = Category.all
-
-    gon.categories = @categories.pluck(:name).map(&:to_s)
+    gon.categories = []
     myAchievement = []
     total = []
     gon.myARates = []
     gon.myARatesMinus = []
+
+    gon.categories.clear
+    myAchievement.clear
+    total.clear
+    gon.myARates.clear
+    gon.myARatesMinus.clear
+
+    @categories = Category.all
+    gon.categories = @categories.pluck(:name).map(&:to_s)
 
     @myAchievement = AchievementRate.where(staff_id: @staff)
 
@@ -26,6 +33,11 @@ class Admin::StaffsController < ApplicationController
       gon.myARates << (myAchievement[i].to_f / total[i] * 100 ).floor
       gon.myARatesMinus << 100 - (myAchievement[i].to_f / total[i] * 100 ).floor
     end
+
+    p gon.categories
+    p gon.myARates
+    p gon.myARatesMinus
+
   end
 
   def update

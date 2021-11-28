@@ -1,12 +1,12 @@
 <table>
   <thead>
     <tr>
-      <th></th>
+      <th>ID</th>
       <th>名前</th>
       <th>達成率</th>
       <th>正答率</th>
       <th>最終ログイン日時</th>
-      <th>スタッフステータス</th>
+      <th>ステータス(ログイン回数)</th>
     </tr>
   </thead>
   <tbody>
@@ -18,11 +18,8 @@
         <td>正答率</td>
         <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
         <td>
-          <!--実装途中-->
-  				<% if staff.status == true && staff_signed_in? == true %>
-    				<span class="text-login">ログイン中</span>
-  				<% elsif staff.status == true && staff_signed_in? == false %>
-    				<span class="text-logout">ログアウト</span>
+  				<% if staff.status? %>
+    				<span class="text-login"><%= staff.sign_in_count %>回</span>
     			<% else %>
   					<span class="text-invalid">退職</span>
   				<% end %>

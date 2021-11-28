@@ -17,14 +17,13 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
-$(document).on('turbolinks:load', function() {
-  $(document).ready(function () {
 
-    $.each(gon.choices, function(index, value){
-      $("<li>", {
-        text: value.choice_text
-      }).appendTo('#choices');
-    })
 
-  });
-});
+// $(document).on('turbolinks:load', function() {
+//   $(document).ready(function () {
+
+//     $.each(gon.choices, function(index, value){
+//       $("<li>", {
+//         text: value.choice_text
+//       }).appendTo('#choices');
+//     })

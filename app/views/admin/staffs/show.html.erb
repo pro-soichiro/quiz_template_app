@@ -1,7 +1,78 @@
 <h2><%= @staff.full_name %></h2>
 <div>
   <canvas id="myChart"></canvas>
-  <script>draw_graph();</script>
+  <script>
+    var categories = gon.categories;
+    var myARates = gon.myARates;
+    var myARatesMinus = gon.myARatesMinus;
+    var bgc = [];
+    var bdc = [];
+
+    if (typeof myChart !== 'undefined' && myChart) {
+      myChart.destroy();
+    }
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+
+    myARates.forEach(function(i){
+      if ( i <= 25 ) {
+        bgc.push('rgba(215,236,250,0.8)');
+        bdc.push('#81C4F2');
+      } else if (26 >= i || i <= 50) {
+        bgc.push('rgba(255,212,228,0.8)');
+        bdc.push('#FF82B2');
+      } else if (51 >= i || i <= 75) {
+        bgc.push('rgba(255,235,216,0.8)');
+        bdc.push('#FFAE60');
+      } else if ( i == 100 ) {
+        bgc.push('rgba(214,236,214,0.8)');
+        bdc.push('#37A236');
+      };
+    });
+
+
+    var myChart = new Chart(ctx, {
+      type: 'horizontalBar',
+      data: {
+        labels: categories,
+        datasets: [{
+          label: '達成',
+          data: myARates,
+          backgroundColor: bgc,
+          borderWidth: 1,
+          borderColor: bdc
+        },{
+          label: '残り',
+          data: myARatesMinus
+        }]
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: '単位[%]',
+            },
+            ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 10
+            },
+            stacked: true,
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'カテゴリ',
+            },
+            stacked: true
+          }]
+        }
+      }
+    });
+
+  </script>
   <div>
     最終ログイン日時
     <%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %>
@@ -19,17 +90,14 @@
         <td><%=  @staff.full_name %></td>
       </tr>
       <tr>
-        <td>Employ Number</td>
-        <td><%= @staff.employ_number %></td>
+        <td>Email</td>
+        <td><%= @staff.email %></td>
       </tr>
       <tr>
-        <td>スタッフステータス</td>
+        <td>ステータス(ログイン回数)</td>
         <td>
-          <!--実装途中-->
-          <% if @staff.status == true && staff_signed_in? == true %>
-    				<span class="text-login">ログイン中</span>
-  				<% elsif @staff.status == true && staff_signed_in? == false %>
-    				<span class="text-logout">ログアウト</span>
+          <% if @staff.status? %>
+    				<span class="text-login"><%= @staff.sign_in_count %>回</span>
     			<% else %>
   					<span class="text-invalid">退職</span>
   				<% end %>
