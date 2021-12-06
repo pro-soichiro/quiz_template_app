@@ -60,16 +60,13 @@ class Public::QuestionsController < ApplicationController
     if @choice and @choice.is_answer
       @correct = true
       session[:correct] += 1
-      @achievement_rate = AchievementRate.new
-      @achievement_rate.staff_id = current_staff.id
-      @achievement_rate.question_id = @question["id"]
+      @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
+
       @achievement_rate.category_id = @question["category_id"]
       @achievement_rate.status = true
       @achievement_rate.save
     elsif @choice
-      @achievement_rate = AchievementRate.new
-      @achievement_rate.staff_id = current_staff.id
-      @achievement_rate.question_id = @question["id"]
+      @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
       @achievement_rate.category_id = @question["category_id"]
       @achievement_rate.status = false
       @achievement_rate.save

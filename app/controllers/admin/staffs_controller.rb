@@ -22,7 +22,7 @@ class Admin::StaffsController < ApplicationController
     @categories = Category.all
     gon.categories = @categories.pluck(:name).map(&:to_s)
 
-    @myAchievement = AchievementRate.where(staff_id: @staff)
+    @myAchievement = AchievementRate.where(staff_id: @staff).where(status: true)
 
     @categories.each do |category|
       total << category.questions.count
@@ -30,13 +30,10 @@ class Admin::StaffsController < ApplicationController
     end
 
     @categories.length.times do |i|
-      gon.myARates << (myAchievement[i].to_f / total[i] * 100 ).floor
-      gon.myARatesMinus << 100 - (myAchievement[i].to_f / total[i] * 100 ).floor
+      gon.myARates << ( myAchievement[i] * 100 / total[i] rescue 0 )
+      gon.myARatesMinus << ( 100 - myAchievement[i] * 100 / total[i] rescue 100 )
     end
 
-    p gon.categories
-    p gon.myARates
-    p gon.myARatesMinus
 
   end
 

@@ -6,7 +6,6 @@ class Public::StaffsController < ApplicationController
   end
 
   def show
-
     @categories = Category.all
 
     gon.categories = @categories.pluck(:name).map(&:to_s)
@@ -24,12 +23,8 @@ class Public::StaffsController < ApplicationController
 
 
     @categories.length.times do |i|
-      # gon.myARates << myAchievement[i]
-      # gon.myARatesMinus << ( total[i] - myAchievement[i])
-      gon.myARates << ( myAchievement[i] * 100 / total[i] )
-      gon.myARatesMinus << ( 100 - myAchievement[i] * 100 / total[i] )
-      # gon.myARates << (myAchievement[i].to_f / total[i] * 100 ).floor
-      # gon.myARatesMinus << 100 - (myAchievement[i].to_f / total[i] * 100 ).floor
+      gon.myARates << ( myAchievement[i] * 100 / total[i] rescue 0 )
+      gon.myARatesMinus << ( 100 - myAchievement[i] * 100 / total[i] rescue 100 )
     end
 
   end
@@ -38,10 +33,8 @@ class Public::StaffsController < ApplicationController
   end
 
   def update
-    # binding.pry
     if @staff.update(staff_params)
       Rails.logger.debug "@staff : #{@staff.inspect}"
-    # binding.pry
       redirect_to staff_path(@staff)
     else
       render :edit
