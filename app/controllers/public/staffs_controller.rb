@@ -3,6 +3,7 @@ class Public::StaffsController < ApplicationController
   before_action :ensure_staff, only: [:show,:edit,:update]
 
   def index
+    @achievement_rates = AchievementRate.where(staff_id: current_staff).where(status: false).order(:category_id)
   end
 
   def show
