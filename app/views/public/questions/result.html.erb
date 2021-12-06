@@ -1,2 +1,31 @@
 <h1>Public::Questions#result</h1>
 <p>Find me in app/views/public/questions/result.html.erb</p>
+
+<h1>Quiz Results</h1>
+<p id="question"><%= @total %> 問中 <%= @correct %> 問正解しました！</p>
+
+<p id="score">あなたの正答率は <%= @score %>%です！</p>
+
+<% @questions.each_with_index do |question,index| %>
+  <h3><%= index +1 %>問目.<%= question.question_text %></h3>
+  <ul>
+    <% question.choices.each do |choice| %>
+      <% if choice.is_answer %>
+        <li class="correct feedback-choice">正解
+      <% elsif @selected.include? choice.id %>
+        <li class="incorrect feedback-choice">あなたの答え
+      <% else %>
+        <li class="feedback-choice">
+      <% end %>
+      <%= choice["choice_text"] %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<%= form_tag({:controller => "questions", :action => "categories"}, :method => "get") do %>
+  <div class="center">
+	 <%= submit_tag("カテゴリ選択画面", :class => "submit") %>
+  </div>
+<% end %>

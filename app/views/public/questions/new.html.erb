@@ -2,9 +2,16 @@
 
 <p>
   この問題は【<%= @category.name %>】です。<br />
-  問題は全部で10問あります。<br />
-  <br />
-  解答を始める場合は、開始ボタンから始めてください。
 </p>
-<%= link_to "問題カテゴリ選択画面へ",questions_categories_path %>
-<%= link_to "開始",questions_answer_path(category_id: @category.id) %>
+
+<%= form_tag({:controller => "questions",:action => "start"}) do %>
+  <%= hidden_field_tag(:category , @category.id) %>
+  <p><%= label_tag(:number, "解答したい問題数を選んでください。", :id => "question") %></p>
+  <p class="center">
+    <%= select_tag(:number, options_for_select((1..@max).map {|x| [x, x]}), :id => "count") %> <br />
+  </p>
+  <%= link_to "問題カテゴリ選択画面へ",questions_categories_path %>
+	<%= submit_tag "開始" %>
+<% end %>
+
+

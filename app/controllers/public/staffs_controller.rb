@@ -15,16 +15,21 @@ class Public::StaffsController < ApplicationController
     gon.myARates = []
     gon.myARatesMinus = []
 
-    @myAchievement = AchievementRate.where(staff_id: @staff)
+    @myAchievement = AchievementRate.where(staff_id: @staff).where(status: true)
 
     @categories.each do |category|
       total << category.questions.count
       myAchievement << @myAchievement.where(category_id: category.id).count
     end
 
+
     @categories.length.times do |i|
-      gon.myARates << (myAchievement[i].to_f / total[i] * 100 ).floor
-      gon.myARatesMinus << 100 - (myAchievement[i].to_f / total[i] * 100 ).floor
+      # gon.myARates << myAchievement[i]
+      # gon.myARatesMinus << ( total[i] - myAchievement[i])
+      gon.myARates << ( myAchievement[i] * 100 / total[i] )
+      gon.myARatesMinus << ( 100 - myAchievement[i] * 100 / total[i] )
+      # gon.myARates << (myAchievement[i].to_f / total[i] * 100 ).floor
+      # gon.myARatesMinus << 100 - (myAchievement[i].to_f / total[i] * 100 ).floor
     end
 
   end

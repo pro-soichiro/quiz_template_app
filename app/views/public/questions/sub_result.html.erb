@@ -1,0 +1,31 @@
+<h1><%= @current + 1 %> / <%= @total %>問中</h1>
+<h2 class="feedback">
+  <% if @correct %>
+	 正解！
+  <% else %>
+	 不正解
+  <% end %>
+</h2>
+
+<p id="question">問題.<%= @question["question_text"] %></p>
+
+<ul id="feedback-choices">
+  <% @choices.each do |choice| %>
+    <% if choice["is_answer"] %>
+      <li class="correct feedback-choice">正解
+    <% elsif choice["id"] == @choice.id %>
+      <li class="incorrect feedback-choice">あなたの答え
+    <% else %>
+      <li class="feedback-choice">
+    <% end %>
+    <%= choice["choice_text"] %>
+    </li>
+  <% end %>
+</ul>
+
+
+<%= form_tag({:controller => "questions", :action => "answer"}) do %>
+  <div class="center">
+	 <%= submit_tag("次の問題") %>
+  </div>
+<% end %>

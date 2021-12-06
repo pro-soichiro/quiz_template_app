@@ -24,7 +24,10 @@ Rails.application.routes.draw do
     resources :staffs, only: [:show,:index,:edit,:update]
     get 'questions/categories'
     resources :questions, only: [:new]
+    post "questions/start"
     get 'questions/answer'
+    post 'questions/answer'
+    post 'questions/sub_result'
     get 'questions/result'
     resources :achievement_rates, only:[:create,:update]
     resources :correct_answer_rates, only: [:index]

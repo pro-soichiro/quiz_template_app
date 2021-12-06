@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+
+li {
+  list-style: none;
+  user-select: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+li > label {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 10px 40px;
+  cursor: pointer;
+  width: 100px;
+}
+li > label:hover {
+  background: #f8f8f8;
+}
+
+.correct {
+  color: red;
+}
+
+.incorrect {
+  color: blue;
+}
