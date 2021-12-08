@@ -81,6 +81,10 @@
     最終ログイン日時
     <%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %>
   </div>
+  <div>
+    正答率
+    <%= @my_correct_answer_rate %>%
+  </div>
 </div>
 <div>
   <table>
@@ -88,15 +92,20 @@
       <tr>
         <th></th>
         <th>名前</th>
+        <th>フリガナ</th>
         <th>E-mail</th>
         <th></th>
-        <th>誤答問題数</th>
+        <th>
+          誤答問題数
+          <%= @achievement_rates_count %>件
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %></td>
         <td><%= @staff.full_name %></td>
+        <td><%= @staff.full_name_kana %></td>
         <td><%= @staff.email %></td>
         <td>
           <%= link_to "⚙", edit_staff_path(@staff) %>

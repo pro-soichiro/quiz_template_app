@@ -1,7 +1,7 @@
+  <p><%= session[:category]["name"] %></p>
+  <p>【問題<%= @current + 1 %>】  <span><%= @current + 1 %>問/ <%= @total %>問中</span></p>
+  <p id="question"><%= @question.question_text %>  <span>(問題番号<%= @question.id %>)</span></p>
 
-  <h1>問題 <%= @current + 1 %> / <%= @total %>問</h1>
-  <p id="question"><%= @question.question_text %></p>
-  <span>(問題番号<%= @question.id %>)</span>
 
   <%= form_tag({:controller => "questions", :action => "sub_result"}) do %>
     <ul>
@@ -13,7 +13,7 @@
       <% end %>
     </ul>
     <div class="center">
-  	 <%= submit_tag("答え合わせ") %>
+  	 <%= submit_tag("解答") %>
     </div>
   <% end %>
 

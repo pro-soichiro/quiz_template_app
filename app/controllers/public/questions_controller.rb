@@ -6,8 +6,8 @@ class Public::QuestionsController < ApplicationController
   end
 
   def new
-    @category = Category.find(params[:category_id])
-    @questions = Question.where(category_id: @category)
+    session[:category] = Category.find(params[:category_id])
+    @questions = Question.where(category_id: session[:category])
 
     if @questions.count == 0 then
       redirect_to({action: :categories},{notice: '問題がまだありません。'})
@@ -20,7 +20,7 @@ class Public::QuestionsController < ApplicationController
 
   def start
     total = params[:number].to_i
-    all = Question.where(category_id: params[:category]).map {|x| x.id}
+    all = Question.where(category_id: session[:category]["id"]).map {|x| x.id}
     session[:questions] = all.sort_by{rand}[0..(total-1)]
     session[:total]   = total
     session[:selected]  = []
@@ -47,9 +47,11 @@ class Public::QuestionsController < ApplicationController
   end
 
   def sub_result
+    session[:current] += 1
 
     @current = session[:current]
     @total   = session[:total]
+
 
     choiceid = params[:selected]
     @question = session[:question]
@@ -57,7 +59,16 @@ class Public::QuestionsController < ApplicationController
 
     @choice = choiceid ? Choice.find(choiceid) : nil
     session[:selected] << @choice.id
+
+    # 正答率
+    @correct_answer_rate = CorrectAnswerRate.new
+    @correct_answer_rate.staff_id = current_staff.id
+    @correct_answer_rate.question_id = @question["id"]
+    @correct_answer_rate.category_id = @question["category_id"]
+
+
     if @choice and @choice.is_answer
+      # 選択された答えが正しかった時
       @correct = true
       session[:correct] += 1
       @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
@@ -65,16 +76,32 @@ class Public::QuestionsController < ApplicationController
       @achievement_rate.category_id = @question["category_id"]
       @achievement_rate.status = true
       @achievement_rate.save
+
+      # 正答率
+      @correct_answer_rate.status = true
+      @correct_answer_rate.save
+
     elsif @choice
+      # 選択された選択肢がある時
       @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
       @achievement_rate.category_id = @question["category_id"]
       @achievement_rate.status = false
       @achievement_rate.save
+
+      # 正答率
+      @correct_answer_rate.status = false
+      @correct_answer_rate.save
+
     else
+      # 何も選択されていなかった時
       @correct = false
+      # 正答率
+      @correct_answer_rate.status = false
+      @correct_answer_rate.save
+
     end
 
-    session[:current] += 1
+
   end
 
 

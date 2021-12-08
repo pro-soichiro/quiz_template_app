@@ -15,7 +15,10 @@
         <td><%= staff.id %></td>
         <td><%= link_to staff.full_name,admin_staff_path(staff) %></td>
         <td>達成率</td>
-        <td>正答率</td>
+        <td>
+          正答率
+
+        </td>
         <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
         <td>
   				<% if staff.status? %>

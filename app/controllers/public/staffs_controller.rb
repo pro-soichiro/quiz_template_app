@@ -8,6 +8,12 @@ class Public::StaffsController < ApplicationController
 
   def show
     @categories = Category.all
+    @achievement_rates_count = AchievementRate.where(staff_id: current_staff).where(status: false).count
+
+    @correct_answer_rates = CorrectAnswerRate.where(staff_id: current_staff)
+    correct_answer_total = @correct_answer_rates.count
+    correct_answer_true_count = @correct_answer_rates.where(status: true).count
+    @my_correct_answer_rate = ( correct_answer_true_count * 100 / correct_answer_total rescue 0 )
 
     gon.categories = @categories.pluck(:name).map(&:to_s)
     myAchievement = []
