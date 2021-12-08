@@ -16,7 +16,7 @@
       <% if staff_signed_in? %>
         <%= link_to "マイページ", staff_path(current_staff) %>
         <%= link_to "問題を解く", questions_categories_path %>
-        <%= link_to "ランキング", staffs_path %>
+        <%= link_to "ランキング", correct_answer_rates_path %>
         <%= link_to "ログアウト", destroy_staff_session_path, method: :delete %>
       <% elsif admin_signed_in? then %>
         <%= link_to "スタッフ一覧", admin_staffs_path %>

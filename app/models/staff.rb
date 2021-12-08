@@ -22,6 +22,14 @@ class Staff < ApplicationRecord
     last_name_kana + " " + first_name_kana
   end
 
+  def correct_rates
+    correct_answer_rates = CorrectAnswerRate.where(staff_id: self.id)
+    all_count = correct_answer_rates.count
+    correct_count = correct_answer_rates.where(status: true).count
+    @correct_rates = (correct_count * 100 / all_count rescue 0)
+    return @correct_rates
+  end
+
 
 
 

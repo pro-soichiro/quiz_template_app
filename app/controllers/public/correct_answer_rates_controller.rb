@@ -1,5 +1,5 @@
 class Public::CorrectAnswerRatesController < ApplicationController
   def index
-    @correct_answer_rates = CorrectAnswerRates.where()
+    @staffs = Staff.all
   end
 end

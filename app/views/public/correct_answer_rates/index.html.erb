@@ -1,2 +1,24 @@
-<h1>Public::CorrectAnswerRates#index</h1>
-<p>Find me in app/views/public/correct_answer_rates/index.html.erb</p>
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>名前</th>
+      <th>正答率</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @staffs.each do |staff| %>
+      <tr>
+        <td>
+          <%= staff.id %>
+        </td>
+        <td>
+          <%= staff.full_name %>
+        </td>
+        <td>
+          <%= staff.correct_rates %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
