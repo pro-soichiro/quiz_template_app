@@ -14,12 +14,9 @@
       <tr>
         <td><%= staff.id %></td>
         <td><%= link_to staff.full_name,admin_staff_path(staff) %></td>
-        <td>達成率</td>
-        <td>
-          正答率
-          
-        </td>
-        <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
+        <td><%= staff.achievement_rates %></td></td>
+        <td><%= staff.correct_rates %></td>
+        <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d") %></td>
         <td>
   				<% if staff.status? %>
     				<span class="text-login"><%= staff.sign_in_count %>回</span>

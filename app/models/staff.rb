@@ -24,6 +24,23 @@ class Staff < ApplicationRecord
     last_name_kana + " " + first_name_kana
   end
 
+  # 達成率メソッド
+  def achievement_rates(category_id = nil)
+    true_count_data = AchievementRate.where(staff_id: self.id).where(status: true)
+
+    if category_id
+      true_count = true_count_data.where(category_id: category_id).count
+      all_count = Question.where(category_id: category_id).count
+    else
+      true_count = true_count_data.count
+      all_count = Question.all.count
+    end
+
+    achievement_rates = ( true_count * 100 / all_count rescue 0)
+    return achievement_rates
+  end
+
+  # 正答率メソッド
   def correct_rates(category_id = nil)
     if category_id
       correct_answer_rates = CorrectAnswerRate.where(staff_id: self.id).where(category_id: category_id)
@@ -32,8 +49,8 @@ class Staff < ApplicationRecord
     end
     all_count = correct_answer_rates.count
     correct_count = correct_answer_rates.where(status: true).count
-    @correct_rates = (correct_count * 100 / all_count rescue 0)
-    return @correct_rates
+    correct_rates = (correct_count * 100 / all_count rescue 0)
+    return correct_rates
   end
 
 end

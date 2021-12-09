@@ -14,7 +14,6 @@
 
     var ctx = document.getElementById("myChart").getContext('2d');
 
-    console.log(myARates);
     myARates.forEach(function(i){
       // 0以上25以下 pink
       if ( i >= 0 && i <= 25 ) {
@@ -83,8 +82,11 @@
   </div>
   <div>
     正答率
-    <!--<%= @my_correct_answer_rate %>%-->
-    <%= @staff.correct_rates() %>%
+    <%= @staff.correct_rates %>%
+  </div>
+  <div>
+    総達成率
+    <%= @staff.achievement_rates %>%
   </div>
 </div>
 <div>
