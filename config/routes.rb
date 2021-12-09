@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :staffs, only: [:index,:show,:update]
     resources :questions, only: [:index,:new,:create,:edit,:update,:destroy]
+    resources :choices, only: [:destroy]
+
     resources :categories, only: [:index,:create,:edit,:update,:destroy]
     resources :correct_answer_rates, only:[:create]
     resources :achievement_rates, only:[:create,:update]

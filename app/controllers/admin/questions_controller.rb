@@ -4,9 +4,9 @@ class Admin::QuestionsController < ApplicationController
 
   def index
     @categories = Category.all
-    if params[:category_id]
-      @category = @categories.find(params[:category_id])
-      all_questions = @category.questions
+    if params[:category]
+      @category = @categories.find(params[:category])
+      all_questions = Question.where(category_id: @category).order(created_at: :desc)
     else
       all_questions = Question.order(created_at: :desc).limit(3)
     end
@@ -16,11 +16,14 @@ class Admin::QuestionsController < ApplicationController
   end
 
   def new
-    @question = Form::Question.new()
+    @question = Form::Question.new
+    gon.choice_index = 4
   end
 
   def edit
 		@question = Form::Question.find(params[:id])
+		gon.choice_index = @question.choices.count
+		@choices = Choice.where(question_id: @question.id)
   end
 
   def create

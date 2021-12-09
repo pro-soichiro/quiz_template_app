@@ -1,2 +1,53 @@
 <h2>問題 新規作成</h2>
-<%= render 'new_form',question: @question, path: admin_questions_path, submit: '新規作成',method: :post %>
+<div>CSVで読み込む機能</div>
+<div id="add_choice_btn" class="add_choice_btn">+</div>
+<div id="remove_choice_btn" class="add_choice_btn">-</div>
+
+<%= form_with model: @question, url: admin_questions_path do |f| %>
+	<div class="flex">
+		<table>
+			<thead>
+				<tr>
+					<th>カテゴリ</th>
+					<th>問題文</th>
+					<th>画像</th>
+					<th>選択肢</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="tr_parent_node">
+					<td><%= f.collection_select :category_id, Category.all, :id, :name %></td>
+					<td><%= f.text_area :question_text, rows: 3 %></td>
+					<td><%= f.attachment_field :image %>画像を選択する</td>
+					<%= f.fields_for :choices,@question.choices.build do |choice| %>
+				    <td>
+              <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
+              <%= choice.check_box :is_answer %>
+            </td>
+				  <% end %>
+					<%= f.fields_for :choices,@question.choices.build do |choice| %>
+				    <td>
+				      <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
+				      <%= choice.check_box :is_answer %>
+				    </td>
+				  <% end %>
+					<%= f.fields_for :choices,@question.choices.build do |choice| %>
+				    <td>
+				      <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
+				      <%= choice.check_box :is_answer %>
+				    </td>
+				  <% end %>
+					<%= f.fields_for :choices,@question.choices.build do |choice| %>
+				    <td>
+				      <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
+				      <%= choice.check_box :is_answer %>
+				    </td>
+				  <% end %>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<%= f.submit "新規作成" %>
+	</div>
+<% end %>

@@ -1,16 +1,16 @@
 <h2>問題一覧画面</h2>
 <div class="sidebar">
   <% @categories.each do |category| %>
-    <%= link_to category.name , admin_questions_path(category_id: category.id) %>
+    <%= link_to category.name , admin_questions_path(category: category.id) %>
   <% end %>
 
 </div>
 <div class="content">
 
-	<% if params[:category_id] %>
+	<% if params[:category] %>
 		<h2><%= @category.name %> 問題数<%= @all_questions_count %>問</h2>
 	<% else %>
-		<h2>最近追加された問題 全<%= @all_questions_count %>問</h2>
+		<h2>最近追加された問題</h2>
 	<% end %>
 
 	<h3 class="text-right">
@@ -18,8 +18,50 @@
 	</h3>
 
 	<% if @questions.first %>
-		<%= render 'admin/questions/index', questions: @questions %>
-		<%= paginate @questions %>
+		<table>
+			<thead>
+				<tr>
+					<% unless params[:category] %>
+						<th>カテゴリ</th>
+					<% end %>
+					<th>問題番号</th>
+					<th>問題文</th>
+					<th>選択肢</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @questions.each do |question| %>
+					<tr>
+						<% unless params[:category] %>
+						<td><%= question.category.name %></td>
+						<% end %>
+						<td><%= question.id %></td>
+						<td>
+							<%= attachment_image_tag question,:image, :fill, 100, 100,format: 'jpeg' %>
+							<%= question.question_text %>
+						</td>
+						<td>
+						  <% question.choices.each do |choice| %>
+						  	<% if choice.is_answer? %>
+						  		<p class="correct">正解<%= choice.choice_text %>
+		            <% else %>
+		            	<p><%= choice.choice_text %>
+		            <% end %>
+		            </p>
+		          <% end %>
+						</td>
+						<td>
+						  <%= link_to "編集", edit_admin_question_path(question) %>
+						  <%= link_to "削除", admin_question_path(question),method: :delete %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% if params[:category] %>
+			<%= paginate @questions %>
+		<% end %>
 	<% else %>
 		<h3>問題はまだありません。</h3>
 	<% end %>

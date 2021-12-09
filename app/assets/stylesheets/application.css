@@ -39,3 +39,17 @@ li > label:hover {
 .incorrect {
   color: blue;
 }
+
+.add_choice_btn {
+  font-size: 30px;
+  cursor: pointer;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #EFEFEF;
+  border-radius: 50%;
+}
+
+.hidden {
+  display: none;
+}
