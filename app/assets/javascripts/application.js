@@ -19,11 +19,8 @@
 //= require_tree .
 
 
-// $(document).on('turbolinks:load', function() {
-//   $(document).ready(function () {
-
-//     $.each(gon.choices, function(index, value){
-//       $("<li>", {
-//         text: value.choice_text
-//       }).appendTo('#choices');
-//     })
+$(document).ready(function () {
+  $('.choice').change(function() {
+      $('#answer_btn').prop('disabled', false);
+  });
+});

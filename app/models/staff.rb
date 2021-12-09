@@ -4,6 +4,8 @@ class Staff < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
+  extend OrderAsSpecified
+
   has_many :achievement_rates,      dependent: :destroy
   has_many :correct_answer_rates,  dependent: :destroy
   attachment :image
@@ -22,15 +24,16 @@ class Staff < ApplicationRecord
     last_name_kana + " " + first_name_kana
   end
 
-  def correct_rates
-    correct_answer_rates = CorrectAnswerRate.where(staff_id: self.id)
+  def correct_rates(category_id = nil)
+    if category_id
+      correct_answer_rates = CorrectAnswerRate.where(staff_id: self.id).where(category_id: category_id)
+    else
+      correct_answer_rates = CorrectAnswerRate.where(staff_id: self.id)
+    end
     all_count = correct_answer_rates.count
     correct_count = correct_answer_rates.where(status: true).count
     @correct_rates = (correct_count * 100 / all_count rescue 0)
     return @correct_rates
   end
-
-
-
 
 end

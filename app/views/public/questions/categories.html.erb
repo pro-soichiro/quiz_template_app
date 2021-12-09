@@ -4,7 +4,7 @@
 
   <% @categories.each do |category| %>
     <div>
-      <%= link_to category.name ,new_question_path(category_id: category.id) %>
+      <%= link_to category.name ,new_question_path(id: category.id) %>
     </div>
   <% end %>
 </table>

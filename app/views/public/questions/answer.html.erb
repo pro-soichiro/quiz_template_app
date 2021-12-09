@@ -1,21 +1,22 @@
   <p><%= session[:category]["name"] %></p>
   <p>【問題<%= @current + 1 %>】  <span><%= @current + 1 %>問/ <%= @total %>問中</span></p>
-  <p id="question"><%= @question.question_text %>  <span>(問題番号<%= @question.id %>)</span></p>
+  <p id="question">
+    <%= @question.question_text %>
+    <%= attachment_image_tag @question, :image,:fill, 100, 100,format: 'jpeg' %>
+    <span>(問題番号<%= @question.id %>)</span>
+  </p>
 
 
-  <%= form_tag({:controller => "questions", :action => "sub_result"}) do %>
+  <%= form_with(url: {:controller => "questions", :action => "sub_result"},local: true) do |f| %>
     <ul>
       <% @choices.each do |choice| %>
-    	 <li class="choice">
-    		<%= radio_button_tag(:selected, choice.id) %>
-    		<%= label_tag("selected_".concat(choice.id.to_s).to_sym, choice.choice_text ) %>
+    	 <li>
+    		<%= f.radio_button(:selected, choice.id ,class: "choice" ) %>
+    		<%= f.label("selected_".concat(choice.id.to_s).to_sym, choice.choice_text ,class: "choice") %>
     	 </li>
       <% end %>
     </ul>
     <div class="center">
-  	 <%= submit_tag("解答") %>
+  	 <%= f.submit("解答",disabled: true,id: "answer_btn") %>
     </div>
   <% end %>
-
-
-

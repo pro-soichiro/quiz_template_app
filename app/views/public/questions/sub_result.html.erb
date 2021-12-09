@@ -8,7 +8,10 @@
   <% end %>
 </p>
 
-<p id="question">問題.<%= @question["question_text"] %></p>
+<p id="question">
+  問題.<%= @question.question_text %>
+  <%= attachment_image_tag @question, :image,:fill, 100, 100,format: 'jpeg' %>
+</p>
 
 <ul id="feedback-choices">
   <% @choices.each do |choice| %>

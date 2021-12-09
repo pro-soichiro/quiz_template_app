@@ -30,7 +30,8 @@ Rails.application.routes.draw do
     post 'questions/sub_result'
     get 'questions/result'
     resources :achievement_rates, only:[:create,:update]
-    resources :correct_answer_rates, only: [:index]
+    get 'correct_answer_rates/index', as: 'correct_answer_rates'
+    post 'correct_answer_rates/index'
   end
 
 end

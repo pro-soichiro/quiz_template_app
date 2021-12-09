@@ -1,5 +1,4 @@
 <h2><%= @staff.full_name %></h2>
-<%= @staff.correct_rates %>
 <div>
   <canvas id="myChart"></canvas>
   <script>
@@ -84,7 +83,8 @@
   </div>
   <div>
     正答率
-    <%= @my_correct_answer_rate %>%
+    <!--<%= @my_correct_answer_rate %>%-->
+    <%= @staff.correct_rates() %>%
   </div>
 </div>
 <div>

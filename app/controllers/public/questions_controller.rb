@@ -6,7 +6,7 @@ class Public::QuestionsController < ApplicationController
   end
 
   def new
-    session[:category] = Category.find(params[:category_id])
+    session[:category] = Category.find(params[:id])
     @questions = Question.where(category_id: session[:category])
 
     if @questions.count == 0 then
@@ -54,7 +54,7 @@ class Public::QuestionsController < ApplicationController
 
 
     choiceid = params[:selected]
-    @question = session[:question]
+    @question = Question.find(session[:question]["id"])
     @choices  = session[:choices]
 
     @choice = choiceid ? Choice.find(choiceid) : nil
@@ -91,14 +91,9 @@ class Public::QuestionsController < ApplicationController
       # 正答率
       @correct_answer_rate.status = false
       @correct_answer_rate.save
-
     else
       # 何も選択されていなかった時
       @correct = false
-      # 正答率
-      @correct_answer_rate.status = false
-      @correct_answer_rate.save
-
     end
 
 
@@ -112,8 +107,6 @@ class Public::QuestionsController < ApplicationController
 
     @questions = Question.where(id: session[:questions])
 
-    @question = session[:question]
-    @choices  = session[:choices]
     @selected = session[:selected]
 
     @score = @correct * 100 / @total

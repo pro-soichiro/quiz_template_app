@@ -5,7 +5,11 @@
 <p id="score">あなたの正答率は <%= @score %>%です！</p>
 
 <% @questions.each_with_index do |question,index| %>
-  <h3><%= index +1 %>問目.<%= question.question_text %></h3>
+  <p>
+    <%= index +1 %>問目.
+    <%= question.question_text %>
+    <%= attachment_image_tag question,:image,:fill, 100, 100,format: 'jpeg' %>
+  </p>
   <ul>
     <% question.choices.each do |choice| %>
       <% if choice.is_answer %>

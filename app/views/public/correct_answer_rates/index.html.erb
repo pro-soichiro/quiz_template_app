@@ -1,3 +1,10 @@
+<h2>正答率ランキング</h2>
+<%= @category %>
+<%= form_with(url: {controller: 'correct_answer_rates', action: 'index' },local: true) do |f| %>
+  <%= f.label(:category, "表示したいランキングのカテゴリを選んでください。") %>
+  <%= f.collection_select :category, @categories ,:id,:name, {prompt: "総正答率",selected: @category_id} %>
+	<%= f.submit "表示" %>
+<% end %>
 <table>
   <thead>
     <tr>
@@ -16,7 +23,7 @@
           <%= staff.full_name %>
         </td>
         <td>
-          <%= staff.correct_rates %>
+          <%= staff.correct_rates(@category_id) %>%
         </td>
       </tr>
     <% end %>
