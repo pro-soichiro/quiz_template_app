@@ -67,14 +67,9 @@ class Public::QuestionsController < ApplicationController
 
     # 正解と解答のis_answerの数をカウント
     @all_correct_count = 0
-    @choices.each do |choice|
-      if choice["is_answer"]
-        @all_correct_count += 1
-      end
-    end
+    @choices.each do |choice| @all_correct_count += 1 if choice["is_answer"] end
     @choice_true_count = 0
-    @selected_choices.map {|choice| if choice.is_answer then @choice_true_count += 1 end }
-
+    @selected_choices.each do |choice| @choice_true_count += 1 if choice.is_answer end
 
     # 正誤判定
 
@@ -83,6 +78,7 @@ class Public::QuestionsController < ApplicationController
     @correct_answer_rate.staff_id = current_staff.id
     @correct_answer_rate.question_id = @question["id"]
     @correct_answer_rate.category_id = @question["category_id"]
+
     # 達成率
     @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
     @achievement_rate.category_id = @question["category_id"]

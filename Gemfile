@@ -70,5 +70,4 @@ gem 'kaminari','~> 1.2.1'
 gem "jquery-rails"
 gem 'gon'
 gem 'chart-js-rails', '~> 0.1.4'
-
 gem 'order_as_specified'
