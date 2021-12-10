@@ -12,3 +12,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+
+# 読み込むファイル名を追記する
+Rails.application.config.assets.precompile += %w( chart.js new_change_choice_btn.js edit_change_choice_btn.js answer_btn.js )

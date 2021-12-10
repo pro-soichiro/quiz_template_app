@@ -10,7 +10,7 @@
     <%= select_tag(:number, options_for_select((1..@max).map {|x| [x, x]},{:selected => @max}), :id => "count") %> <br />
   </p>
   <%= link_to "問題カテゴリ選択画面へ",questions_categories_path %>
-	<%= submit_tag "開始" %>
+	<%= submit_tag "開始", data: {"turbolinks" => false}  %>
 <% end %>
 
 

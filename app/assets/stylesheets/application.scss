@@ -1,0 +1,211 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+* vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
+* It is generally better to create a new file per style scope.
+*
+*= require_tree .
+*= require_self
+*/
+
+#error_explanation {
+  color: red;
+  padding-bottom: 20px;
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  ul {
+    padding-left: 50px;
+    list-style: circle;
+  }
+}
+.field_with_errors {
+  display: inline-block;
+  input,
+  textarea {
+    border: 1px solid red;
+  }
+}
+.text-invalid {
+  color: #bbb;
+}
+.text-active {
+  font-weight: bold;
+  color: #0a0;
+}
+h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+input,
+textarea,
+select {
+  padding: 8px;
+}
+header {
+  width: 100vw;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: #B6D7A8;
+  * {
+    position: relative;
+    z-index: 100;
+  }
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    width: 960px;
+    margin: 0 auto;
+    .logo {
+      padding: 10px 20px;
+      font-family: "Century";
+      font-size: 20px;
+      text-decoration: none;
+    }
+    ul {
+      justify-content: flex-end;
+      p {
+        padding: 10px 20px 10px 10px;
+      }
+      li {
+        list-style: none;
+        a {
+          display: block;
+          width: 110px;
+          padding: 10px;
+          text-align: center;
+          text-decoration: none;
+          color: #333;
+        }
+      }
+      li:hover {
+        background-color: #fcc;
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.admin_header {
+  background-color: #aaf;
+  .header-content {
+    ul {
+      li:hover {
+        background-color: #ccf;
+      }
+    }
+    form {
+      width: 510px;
+      position: absolute;
+      top: 43px;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      input[name="search[content]"] {
+        width: 280px;
+      }
+    }
+  }
+}
+main {
+  padding: 100px 0;
+}
+footer {
+  padding: 15px 0;
+  font-size: 14px;
+  text-align: center;
+  background-color: #ccc;
+}
+th {
+  border-style: solid;
+  border-color: #aaa;
+  background-color: #ddd;
+}
+td {
+  padding: 10px;
+  border-style: solid;
+  border-color: #aaa;
+}
+table.has_border {
+  width: 100%;
+  thead {
+    th {
+      border-width: 1px 1px 0;
+    }
+  }
+  tbody {
+    tr {
+      td {
+        vertical-align: middle;
+        border-width: 1px 1px 0;
+      }
+    }
+    tr:last-child {
+      td {
+        border-width: 1px;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+// --------------------------------
+
+li {
+  list-style: none;
+  user-select: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+li > label {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 10px 40px;
+  cursor: pointer;
+  width: 100px;
+}
+li > label:hover {
+  background: #f8f8f8;
+}
+
+
+
+.correct {
+  color: red;
+}
+
+.incorrect {
+  color: blue;
+}
+
+.add_choice_btn {
+  font-size: 30px;
+  cursor: pointer;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #EFEFEF;
+  border-radius: 50%;
+}
+
+.hidden {
+  display: none;
+}

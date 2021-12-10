@@ -1,7 +1,10 @@
-<h2><%= @staff.full_name %></h2>
-<div>
-  <canvas id="myChart"></canvas>
-  <script>
+/* global $*/
+/* global gon*/
+/* global Chart*/
+
+// document.addEventListener("turbolinks:load", function() {
+  document.addEventListener('DOMContentLoaded',function(){
+
     var categories = gon.categories;
     var myARates = gon.myARates;
     var myARatesMinus = gon.myARatesMinus;
@@ -12,10 +15,7 @@
       myChart.destroy();
     }
 
-    var ctx = document.getElementById("myChart").getContext('2d');
-
-
-   myARates.forEach(function(i){
+    myARates.forEach( i => {
       // 0以上25以下 pink
       if ( i >= 0 && i <= 25 ) {
         bgc.push('rgba(255,212,228,0.8)');
@@ -35,6 +35,7 @@
       };
     });
 
+    var ctx = document.getElementById("myChart").getContext('2d');
 
     var myChart = new Chart(ctx, {
       type: 'horizontalBar',
@@ -75,49 +76,5 @@
         }
       }
     });
-
-  </script>
-  <div>
-    最終ログイン日時
-    <%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %>
-  </div>
-  <div>
-    正答率
-    <%= @my_correct_answer_rate %>%
-  </div>
-</div>
-<div>
-  <table>
-    <tbody>
-      <tr>
-        <td></td>
-        <td><%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %></td>
-      </tr>
-      <tr>
-        <td>名前</td>
-        <td><%=  @staff.full_name %></td>
-      </tr>
-      <tr>
-        <td>Email</td>
-        <td><%= @staff.email %></td>
-      </tr>
-      <tr>
-        <td>ステータス(ログイン回数)</td>
-        <td>
-          <% if @staff.status? %>
-    				<span class="text-login"><%= @staff.sign_in_count %>回</span>
-    			<% else %>
-  					<span class="text-invalid">退職</span>
-  				<% end %>
-  			</td>
-      </tr>
-    </tbody>
-  </table>
-  <%= link_to "スタッフ一覧", admin_staffs_path %>
-  <% if @staff.status? %>
-    <%= link_to "退職設定", admin_staff_path(@staff), :method => "PATCH" %>
-  <% else %>
-    <%= link_to "復職設定", admin_staff_path(@staff), :method => "PATCH" %>
-  <% end %>
-</div>
-<%= javascript_include_tag 'chart.js' %>
+  });
+// });

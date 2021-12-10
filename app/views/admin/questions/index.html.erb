@@ -14,7 +14,7 @@
 	<% end %>
 
 	<h3 class="text-right">
-		<%= link_to "新規作成", new_admin_question_path %>
+		<%= link_to "新規作成", new_admin_question_path , data: {"turbolinks" => false} %>
 	</h3>
 
 	<% if @questions.first %>
@@ -52,7 +52,7 @@
 		          <% end %>
 						</td>
 						<td>
-						  <%= link_to "編集", edit_admin_question_path(question) %>
+						  <%= link_to "編集", edit_admin_question_path(question), data: {"turbolinks" => false} %>
 						  <%= link_to "削除", admin_question_path(question),method: :delete %>
 						</td>
 					</tr>

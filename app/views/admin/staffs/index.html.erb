@@ -13,7 +13,7 @@
     <% @staffs.each do |staff| %>
       <tr>
         <td><%= staff.id %></td>
-        <td><%= link_to staff.full_name,admin_staff_path(staff) %></td>
+        <td><%= link_to staff.full_name,admin_staff_path(staff), data: {"turbolinks" => false} %></td>
         <td><%= staff.achievement_rates %></td></td>
         <td><%= staff.correct_rates %></td>
         <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d") %></td>

@@ -1,122 +1,55 @@
-<h2><%= @staff.full_name %></h2>
-<div>
-  <canvas id="myChart"></canvas>
-  <script>
-    var categories = gon.categories;
-    var myARates = gon.myARates;
-    var myARatesMinus = gon.myARatesMinus;
-    var bgc = [];
-    var bdc = [];
-
-    if (typeof myChart !== 'undefined' && myChart) {
-      myChart.destroy();
-    }
-
-    var ctx = document.getElementById("myChart").getContext('2d');
-
-    myARates.forEach(function(i){
-      // 0以上25以下 pink
-      if ( i >= 0 && i <= 25 ) {
-        bgc.push('rgba(255,212,228,0.8)');
-        bdc.push('#FF82B2');
-      // 26以上70以下 orange
-      } else if (i >= 26 && i <= 70) {
-        bgc.push('rgba(255,235,216,0.8)');
-        bdc.push('#FFAE60');
-      // 71以上99以下 blue
-      } else if (i >= 71 && i <= 99) {
-        bgc.push('rgba(215,236,250,0.8)');
-        bdc.push('#81C4F2');
-      // 100 green
-      } else if ( i == 100 ) {
-        bgc.push('rgba(214,236,214,0.8)');
-        bdc.push('#37A236');
-      };
-    });
-
-
-    var myChart = new Chart(ctx, {
-      type: 'horizontalBar',
-      data: {
-        labels: categories,
-        datasets: [{
-          label: '達成',
-          data: myARates,
-          backgroundColor: bgc,
-          borderWidth: 1,
-          borderColor: bdc
-        },{
-          label: '残り',
-          data: myARatesMinus
-        }]
-      },
-      options: {
-        scales: {
-          xAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: '単位[%]',
-            },
-            ticks: {
-              min: 0,
-              max: 100,
-              stepSize: 10
-            },
-            stacked: true,
-          }],
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'カテゴリ',
-            },
-            stacked: true
-          }]
-        }
-      }
-    });
-
-  </script>
-  <div>
-    最終ログイン日時
-    <%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %>
+<section class="inner">
+    <% if flash[:notice] %>
+      <p class="text-active"><%= flash[:notice] %></p>
+    <% end %>
+  <h2><%= @staff.full_name %></h2>
+  <div class="flex">
+    <div>
+      <canvas id="myChart"></canvas>
+      <div>
+        最終ログイン日時
+        <%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %>
+      </div>
+      <div>
+        正答率
+        <%= @staff.correct_rates %>%
+      </div>
+      <div>
+        総達成率
+        <%= @staff.achievement_rates %>%
+      </div>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>名前</th>
+            <th>フリガナ</th>
+            <th>E-mail</th>
+            <th></th>
+            <th>
+              誤答問題数
+              <%= @achievement_rates_count %>件
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %></td>
+            <td><%= @staff.full_name %></td>
+            <td><%= @staff.full_name_kana %></td>
+            <td><%= @staff.email %></td>
+            <td>
+              <%= link_to "⚙", edit_staff_path(@staff) %>
+            </td>
+            <td>
+              <%= link_to "間違えた問題を見る", staffs_path %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div>
-    正答率
-    <%= @staff.correct_rates %>%
-  </div>
-  <div>
-    総達成率
-    <%= @staff.achievement_rates %>%
-  </div>
-</div>
-<div>
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>名前</th>
-        <th>フリガナ</th>
-        <th>E-mail</th>
-        <th></th>
-        <th>
-          誤答問題数
-          <%= @achievement_rates_count %>件
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %></td>
-        <td><%= @staff.full_name %></td>
-        <td><%= @staff.full_name_kana %></td>
-        <td><%= @staff.email %></td>
-        <td>
-          <%= link_to "⚙", edit_staff_path(@staff) %>
-        </td>
-        <td>
-          <%= link_to "間違えた問題を見る", staffs_path %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+</sction>
+<%= javascript_include_tag 'chart.js' %>

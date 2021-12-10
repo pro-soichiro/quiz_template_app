@@ -5,30 +5,58 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-
     <%= Gon::Base.render_data %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <header>
-      <% if staff_signed_in? %>
-        <%= link_to "マイページ", staff_path(current_staff) %>
-        <%= link_to "問題を解く", questions_categories_path %>
-        <%= link_to "ランキング", correct_answer_rates_path %>
-        <%= link_to "ログアウト", destroy_staff_session_path, method: :delete %>
-      <% elsif admin_signed_in? then %>
-        <%= link_to "スタッフ一覧", admin_staffs_path %>
-        <%= link_to "カテゴリ", admin_categories_path %>
-        <%= link_to "問題一覧", admin_questions_path %>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "About", homes_about_path %>
-        <%= link_to "新規登録", new_staff_registration_path %>
-        <%= link_to "ログイン", new_staff_session_path %>
-      <% end %>
-    </header>
-    <%= yield %>
+    <% if staff_signed_in? %>
+
+      <header>
+        <div class="header-content">
+          <%= link_to 'Quiz Template App',staff_path(current_staff),class: "logo", data: {"turbolinks" => false} %>
+          <ul class="flex">
+            <li><%= link_to "マイページ", staff_path(current_staff), data: {"turbolinks" => false} %></li>
+            <li><%= link_to "問題を解く", questions_categories_path %></li>
+            <li><%= link_to "ランキング", correct_answer_rates_path %></li>
+            <li><%= link_to "ログアウト", destroy_staff_session_path, method: :delete %></li>
+          </ul>
+        </div>
+      </header>
+
+    <% elsif admin_signed_in? then %>
+
+      <header class="admin_header">
+        <div class="header-content">
+          <%= link_to 'Quiz Template App',admin_staffs_path,class: "logo" %>
+          <ul class="flex">
+            <li><%= link_to "スタッフ一覧", admin_staffs_path %></li>
+            <li><%= link_to "カテゴリ", admin_categories_path %></li>
+            <li><%= link_to "問題一覧", admin_questions_path %></li>
+            <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+          </ul>
+        </div>
+      </header>
+
+    <% else %>
+
+      <header>
+        <div class="header-content">
+          <%= link_to 'Quiz Template App',homes_about_path,class: "logo" %>
+          <ul class="flex">
+            <li><%= link_to "About", homes_about_path %></li>
+            <li><%= link_to "新規登録", new_staff_registration_path %></li>
+            <li><%= link_to "ログイン", new_staff_session_path %></li>
+          </ul>
+        </div>
+      </header>
+
+    <% end %>
+
+    <main>
+      <%= yield %>
+    </main>
+    <footer>Copyright © Soichiro Mamiya. All Rights Reserved.</footer>
   </body>
 </html>

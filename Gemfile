@@ -67,7 +67,8 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'pry-rails'
 gem 'kaminari','~> 1.2.1'
-gem "jquery-rails"
+gem 'jquery-rails'
+gem 'jquery-turbolinks'
 gem 'gon'
 gem 'chart-js-rails', '~> 0.1.4'
 gem 'order_as_specified'
