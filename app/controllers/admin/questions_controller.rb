@@ -22,14 +22,18 @@ class Admin::QuestionsController < ApplicationController
 
   def edit
 		@question = Form::Question.find(params[:id])
-		gon.choice_index = @question.choices.count
+		choice_index = @question.choices.count
+
+		gon.choice_index = choice_index
+		@choice_index = choice_index
+
 		@choices = Choice.where(question_id: @question.id)
   end
 
   def create
     @question = Form::Question.new(question_params)
     if @question.save
-      redirect_to admin_questions_path
+      redirect_to action: :index,category: @question.category_id
     else
       render :new
     end
@@ -37,7 +41,7 @@ class Admin::QuestionsController < ApplicationController
 
   def update
 		if @question.update(question_params)
-			redirect_to admin_questions_path
+			redirect_to action: :index,category: @question.category_id
 		else
 			render :edit
 		end
@@ -45,7 +49,8 @@ class Admin::QuestionsController < ApplicationController
 
   def destroy
 		Question.find(params[:id]).destroy
-		redirect_to admin_questions_path
+		# redirect_to admin_questions_path
+		redirect_to action: :index,category: @question.category_id
   end
 
 

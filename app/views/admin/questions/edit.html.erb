@@ -1,5 +1,6 @@
 <h2>問題 編集</h2>
 <div id="add_choice_btn" class="add_choice_btn">+</div>
+<div id="remove_choice_btn" class="add_choice_btn hidden">-</div>
 
 <%= form_with model: @question, url: admin_question_path do |f| %>
 	<div class="flex">
@@ -21,7 +22,6 @@
 					  <td>
     				  <%= choice.text_field :choice_text %>
               <%= choice.check_box :is_answer %>
-
 					  </td>
 				  <% end %>
 				</tr>
@@ -31,7 +31,9 @@
 				  <td></td>
 				  <% @choices.each do |choice| %>
 				    <td>
-              <%= link_to "削除", admin_choice_path(choice.id),method: :delete %>
+				    	<% unless @choice_index <= 2 %>
+              	<%= link_to "削除", admin_choice_path(choice),method: :delete %>
+              <% end %>
 				    </td>
 				  <% end %>
 				</tr>

@@ -19,13 +19,15 @@
 //= require_tree .
 
 
-$(document).ready(function () {
+$(document).on('turbolinks:load',function () {
+
   // 問題選択後、ボタンのdisabledを外す
   {
     $('.choice').change(function() {
       $('#answer_btn').prop('disabled', false);
     });
   }
+
 
   // 問題作成時、選択肢の入力フォーム数を変更できる処理
   {
@@ -46,11 +48,11 @@ $(document).ready(function () {
       return html;
     }
 
-
+    // idやinputを作るための変数
     let input_index = gon.choice_index;
 
     function check_input_index(input_index){
-      if (input_index == 2) {
+      if (input_index == 2 || input_index == gon.choice_index ) {
         $('#remove_choice_btn').toggleClass("hidden");
       }
     }
