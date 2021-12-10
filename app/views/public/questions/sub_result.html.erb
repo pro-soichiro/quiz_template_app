@@ -12,21 +12,23 @@
   問題.<%= @question.question_text %>
   <%= attachment_image_tag @question, :image,:fill, 100, 100,format: 'jpeg' %>
 </p>
-
 <ul id="feedback-choices">
   <% @choices.each do |choice| %>
-    <% if choice["is_answer"] %>
-      <li class="correct feedback-choice">正解
-    <% elsif choice["id"] == @choice.id %>
+
+    <% if @selected_choice_ids.include?(choice["id"]) && choice["is_answer"] %>
+      <li class="correct feedback-choice">あなたの答え
+    <% elsif @selected_choice_ids.include?(choice["id"]) && choice["is_answer"] == false %>
       <li class="incorrect feedback-choice">あなたの答え
+    <% elsif choice["is_answer"] %>
+      <li class="correct feedback-choice">正解
     <% else %>
       <li class="feedback-choice">
     <% end %>
+
     <%= choice["choice_text"] %>
     </li>
   <% end %>
 </ul>
-
 
 <%= form_tag({:controller => "questions", :action => "answer"}) do %>
   <div class="center">

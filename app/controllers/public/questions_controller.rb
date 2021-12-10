@@ -52,50 +52,65 @@ class Public::QuestionsController < ApplicationController
     @current = session[:current]
     @total   = session[:total]
 
+    # answer画面でstaffが選択した値を取得し、integerに変換し格納
+    @selected_choice_ids = params[:selected_choices].map {|x| x.to_i }
 
-    choiceid = params[:selected]
     @question = Question.find(session[:question]["id"])
     @choices  = session[:choices]
 
-    @choice = choiceid ? Choice.find(choiceid) : nil
-    session[:selected] << @choice.id
+    # is_answerを調べるためにChoiceから取得する
+    # 正誤判定に使用
+    @selected_choices = Choice.where(id: @selected_choice_ids)
+
+    # result画面でstaffが選択したchoiceを記録しておくためにidのintegerのみsessionに記録させる
+    session[:selected].concat(@selected_choice_ids)
+
+    # 正解と解答のis_answerの数をカウント
+    @all_correct_count = 0
+    @choices.each do |choice|
+      if choice["is_answer"]
+        @all_correct_count += 1
+      end
+    end
+    @choice_true_count = 0
+    @selected_choices.map {|choice| if choice.is_answer then @choice_true_count += 1 end }
+
+
+    # 正誤判定
 
     # 正答率
     @correct_answer_rate = CorrectAnswerRate.new
     @correct_answer_rate.staff_id = current_staff.id
     @correct_answer_rate.question_id = @question["id"]
     @correct_answer_rate.category_id = @question["category_id"]
+    # 達成率
+    @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
+    @achievement_rate.category_id = @question["category_id"]
 
-
-    if @choice and @choice.is_answer
-      # 選択された答えが正しかった時
+    if @all_correct_count == @choice_true_count
+      # 正解表記
       @correct = true
-      session[:correct] += 1
-      @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
 
-      @achievement_rate.category_id = @question["category_id"]
+      # 正答数のカウント
+      session[:correct] += 1
+
+      # 達成率
       @achievement_rate.status = true
-      @achievement_rate.save
 
       # 正答率
       @correct_answer_rate.status = true
-      @correct_answer_rate.save
+    else
+      # 不正解表記
+      @correct = false
 
-    elsif @choice
-      # 選択された選択肢がある時
-      @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
-      @achievement_rate.category_id = @question["category_id"]
+      # 達成率
       @achievement_rate.status = false
-      @achievement_rate.save
 
       # 正答率
       @correct_answer_rate.status = false
-      @correct_answer_rate.save
-    else
-      # 何も選択されていなかった時
-      @correct = false
     end
-
+    @achievement_rate.save
+    @correct_answer_rate.save
 
   end
 

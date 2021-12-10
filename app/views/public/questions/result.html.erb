@@ -1,7 +1,6 @@
 <h1>結果</h1>
 <p><%= session[:category]["name"] %></p>
 <p id="question"><%= @total %> 問中 <%= @correct %> 問正解しました！</p>
-
 <p id="score">あなたの正答率は <%= @score %>%です！</p>
 
 <% @questions.each_with_index do |question,index| %>
@@ -12,10 +11,12 @@
   </p>
   <ul>
     <% question.choices.each do |choice| %>
-      <% if choice.is_answer %>
-        <li class="correct feedback-choice">正解
-      <% elsif @selected.include? choice.id %>
+      <% if @selected.include?(choice.id) && choice.is_answer %>
+        <li class="correct feedback-choice">あなたの答え
+      <% elsif @selected.include?(choice.id) && choice.is_answer == false %>
         <li class="incorrect feedback-choice">あなたの答え
+      <% elsif choice.is_answer %>
+        <li class="correct feedback-choice">正解
       <% else %>
         <li class="feedback-choice">
       <% end %>

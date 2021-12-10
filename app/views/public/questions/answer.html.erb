@@ -7,11 +7,13 @@
   </p>
 
 
+
   <%= form_with(url: {:controller => "questions", :action => "sub_result"},local: true) do |f| %>
     <ul>
+
       <% @choices.each do |choice| %>
     	 <li>
-    		<%= f.radio_button(:selected, choice.id ,class: "choice" ) %>
+    		<%= check_box_tag 'selected_choices[]', choice.id , false,:id => "selected_#{choice.id}" ,class: "choice" %>
     		<%= f.label("selected_".concat(choice.id.to_s).to_sym, choice.choice_text ,class: "choice") %>
     	 </li>
       <% end %>
