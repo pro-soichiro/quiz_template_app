@@ -1,18 +1,18 @@
-<h2>管理者ログイン</h2>
-<%= form_with model: @admin, url: admin_session_path, local: true do |f| %>
-  <table>
-    <tr>
-      <th>Email</th>
-      <td colspan="2"><%= f.text_field :email,:placeholder =>"sample@sample.com" %></td>
-    </tr>
-    <tr>
-      <th>パスワード(6文字以上)</th>
-      <td colspan="2"><%= f.password_field :password %></td>
-    </tr>
-  </table>
+<section class="inner">
+<h2 class="section-ttl">管理者ログイン</h2>
+  <%= form_with model: @admin, url: admin_session_path, local: true do |f| %>
+    <div class="field mb2">
+      <%= f.label :email, "メールアドレス" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "ログイン" %>
-  </div>
-<% end %>
+    <div class="field mb2">
+      <%= f.label :password, "パスワード" %><br />
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
 
+    <div class="actions">
+      <%= f.submit "ログイン", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</section>

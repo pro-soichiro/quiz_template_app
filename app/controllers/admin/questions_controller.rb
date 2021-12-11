@@ -20,6 +20,11 @@ class Admin::QuestionsController < ApplicationController
     gon.choice_index = 4
   end
 
+  def import
+    Question.import(params[:file])
+    redirect_to new_admin_question_path
+  end
+
   def edit
 		@question = Form::Question.find(params[:id])
 		choice_index = @question.choices.count
@@ -49,7 +54,6 @@ class Admin::QuestionsController < ApplicationController
 
   def destroy
 		Question.find(params[:id]).destroy
-		# redirect_to admin_questions_path
 		redirect_to action: :index,category: @question.category_id
   end
 

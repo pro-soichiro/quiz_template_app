@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :staffs, only: [:index,:show,:update]
-    resources :questions, only: [:index,:new,:create,:edit,:update,:destroy]
+    resources :questions, only: [:index,:new,:create,:edit,:update,:destroy] do
+      collection { post :import }
+    end
     resources :choices, only: [:destroy]
 
     resources :categories, only: [:index,:create,:edit,:update,:destroy]

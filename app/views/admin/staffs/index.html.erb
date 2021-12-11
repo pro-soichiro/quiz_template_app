@@ -1,30 +1,33 @@
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>名前</th>
-      <th>達成率</th>
-      <th>正答率</th>
-      <th>最終ログイン日時</th>
-      <th>ステータス(ログイン回数)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @staffs.each do |staff| %>
+<section class="inner">
+  <h2 class="section-ttl">スタッフ一覧</h2>
+  <table class="admin_staff_index has_border">
+    <thead>
       <tr>
-        <td><%= staff.id %></td>
-        <td><%= link_to staff.full_name,admin_staff_path(staff), data: {"turbolinks" => false} %></td>
-        <td><%= staff.achievement_rates %></td></td>
-        <td><%= staff.correct_rates %></td>
-        <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d") %></td>
-        <td>
-  				<% if staff.status? %>
-    				<span class="text-login"><%= staff.sign_in_count %>回</span>
-    			<% else %>
-  					<span class="text-invalid">退職</span>
-  				<% end %>
-        </td>
+        <th>ID</th>
+        <th>名前</th>
+        <th>達成率</th>
+        <th>正答率</th>
+        <th>最終ログイン日時</th>
+        <th>ステータス<br/>(ログイン回数)</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @staffs.each do |staff| %>
+        <tr>
+          <td><%= staff.id %></td>
+          <td><%= link_to staff.full_name,admin_staff_path(staff), data: {"turbolinks" => false} %></td>
+          <td><%= staff.achievement_rates %>%</td>
+          <td><%= staff.correct_rates %>%</td>
+          <td><%= staff.current_sign_in_at.strftime("%Y/%m/%d") %></td>
+          <td>
+    				<% if staff.status? %>
+      				<span class="text-active"><%= staff.sign_in_count %>回</span>
+      			<% else %>
+    					<span class="text-invalid">退職</span>
+    				<% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

@@ -1,30 +1,37 @@
-<h2>問題カテゴリ</h2>
-
-<%= render 'form', category: @category, url: admin_categories_path, submit: '新規作成' %>
-
-<table>
-  <tr>
-    <th>カテゴリ名</th>
-    <th></th>
-    <th></th>
-    <th>問題数</th>
-  </tr>
-  <% @categories.each do |category| %>
-    <tr>
-      <td>
-        <%= category.name %>
-      </td>
-      <td>
-        <%= link_to '編集',edit_admin_category_path(category) %>
-      </td>
-      <td>
-        <%= link_to '削除', admin_category_path(id: category),
-                            method: :delete,
-                            "data-confirm" => "カテゴリから#{category.name}を削除します。カテゴリを削除するとそのカテゴリの問題も全て削除されますが、よろしいでしょうか？"  %>
-      </td>
-      <td>
-        <%= category.questions.count.to_s + '問' %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<section class="inner">
+  <h2 class="section-ttl">問題カテゴリ</h2>
+  <div class="mb3">
+    <h3>カテゴリ新規登録</h3>
+    <%= render 'form', category: @category, url: admin_categories_path, submit: '新規作成' %>
+  </div>
+  <div class="mb3">
+    <h3>カテゴリ一覧</h3>
+    <table class="category_info">
+      <thead>
+        <tr>
+          <th>カテゴリ名</th>
+          <th></th>
+          <th></th>
+          <th>問題数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <td><%= link_to category.name, admin_questions_path(category: category.id), class: "underline" %></td>
+            <td><%= link_to '編集',edit_admin_category_path(id: category),class: "btn btn-caution" %></td>
+            <td>
+              <%= link_to '削除', admin_category_path(id: category),
+                                  method: :delete,
+                                  class: "btn btn-danger",
+              "data-confirm" => "カテゴリから#{category.name}を削除します。カテゴリを削除するとそのカテゴリの問題も全て削除されますが、よろしいでしょうか？"  %>
+            </td>
+            <td class="text-center">
+              <%= category.questions.count.to_s + '問' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,69 +1,74 @@
-<h2>問題一覧画面</h2>
-<div class="sidebar">
-  <% @categories.each do |category| %>
-    <%= link_to category.name , admin_questions_path(category: category.id) %>
-  <% end %>
+<section class="inner flex">
+	<div class="sidebar">
+		<h3>カテゴリ一覧</h3>
+	  <% @categories.each do |category| %>
+	    <%= link_to category.name , admin_questions_path(category: category.id) %>
+	  <% end %>
+	</div>
 
-</div>
-<div class="content">
+	<div class="content">
+		<% if params[:category] %>
+			<h2 class="section-ttl"><%= @category.name %>の問題一覧 (全<%= @all_questions_count %>問)</h2>
+		<% else %>
+			<h2 class="section-ttl">最近追加された問題</h2>
+		<% end %>
 
-	<% if params[:category] %>
-		<h2><%= @category.name %> 問題数<%= @all_questions_count %>問</h2>
-	<% else %>
-		<h2>最近追加された問題</h2>
-	<% end %>
+		<h3 class="text-right">
+			<%= link_to "新規作成", new_admin_question_path , data: {"turbolinks" => false} ,class: "btn btn-success" %>
+		</h3>
 
-	<h3 class="text-right">
-		<%= link_to "新規作成", new_admin_question_path , data: {"turbolinks" => false} %>
-	</h3>
-
-	<% if @questions.first %>
-		<table>
-			<thead>
-				<tr>
-					<% unless params[:category] %>
-						<th>カテゴリ</th>
-					<% end %>
-					<th>問題番号</th>
-					<th>問題文</th>
-					<th>選択肢</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @questions.each do |question| %>
+		<% if @questions.first %>
+			<table class="questions has_border">
+				<thead>
 					<tr>
+						<th>問題番号</th>
+						<th>問題文</th>
+						<th>選択肢</th>
 						<% unless params[:category] %>
-						<td><%= question.category.name %></td>
+							<th>カテゴリ</th>
 						<% end %>
-						<td><%= question.id %></td>
-						<td>
-							<%= attachment_image_tag question,:image, :fill, 100, 100,format: 'jpeg' %>
-							<%= question.question_text %>
-						</td>
-						<td>
-						  <% question.choices.each do |choice| %>
-						  	<% if choice.is_answer? %>
-						  		<p class="correct">正解<%= choice.choice_text %>
-		            <% else %>
-		            	<p><%= choice.choice_text %>
-		            <% end %>
-		            </p>
-		          <% end %>
-						</td>
-						<td>
-						  <%= link_to "編集", edit_admin_question_path(question), data: {"turbolinks" => false} %>
-						  <%= link_to "削除", admin_question_path(question),method: :delete %>
-						</td>
+						<th></th>
 					</tr>
-				<% end %>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<% @questions.each do |question| %>
+						<tr>
+							<td><%= question.id %></td>
+							<td>
+								<%= attachment_image_tag question,:image, :fill, 100, 100,format: 'jpeg' %>
+								<%= question.question_text %>
+							</td>
+							<td>
+							  <% question.choices.each do |choice| %>
+							  	<% if choice.is_answer? %>
+							  		<p class="correct">正解<%= choice.choice_text %>
+			            <% else %>
+			            	<p><%= choice.choice_text %>
+			            <% end %>
+			            </p>
+			          <% end %>
+							</td>
+							<% unless params[:category] %>
+							<td><%= question.category.name %></td>
+							<% end %>
+							<td class="text-center">
+							  <%= link_to "編集", edit_admin_question_path(question),
+							  										data: {"turbolinks" => false},
+							  										class: "btn btn-caution mb2" %><br/>
+							  <%= link_to "削除", admin_question_path(question),
+							  										method: :delete,
+							  										class: "btn btn-danger" %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% else %>
+			<h3>問題はまだありません。</h3>
+		<% end %>
+
 		<% if params[:category] %>
 			<%= paginate @questions %>
 		<% end %>
-	<% else %>
-		<h3>問題はまだありません。</h3>
-	<% end %>
-
-</div>
+	</div>
+</section>

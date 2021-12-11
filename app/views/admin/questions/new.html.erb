@@ -1,54 +1,92 @@
-<h2>問題 新規作成</h2>
-<div>CSVで読み込む機能</div>
-<div id="add_choice_btn" class="add_choice_btn">+</div>
-<div id="remove_choice_btn" class="add_choice_btn">-</div>
+<section class="inner">
+	<h2 class="section-ttl">問題 新規作成</h2>
+	<div>CSVで読み込む機能</div>
+	<%= form_tag import_admin_questions_path, multipart: true do %>
+	  <%= file_field_tag :file %>
+	  <%= submit_tag "インポート" %>
+	<% end %>
 
-<%= form_with model: @question, url: admin_questions_path do |f| %>
-	<div class="flex">
-		<table>
+	<%= form_with model: @question, url: admin_questions_path do |f| %>
+		<%= render 'layouts/error_messages', resource: @question %>
+		<table class="question_form">
 			<thead>
 				<tr>
-					<th>カテゴリ</th>
-					<th>問題文</th>
-					<th>画像</th>
-					<th>選択肢</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr id="tr_parent_node">
-					<td><%= f.collection_select :category_id, Category.all, :id, :name %></td>
-					<td><%= f.text_area :question_text, rows: 3 %></td>
-					<td><%= f.attachment_field :image %>画像を選択する</td>
+				<tr>
+					<td>カテゴリ</td>
+					<td colspan="3"><%= f.collection_select :category_id, Category.all, :id, :name %></td>
+				</tr>
+				<tr>
+					<td>問題文</td>
+					<td colspan="3"><%= f.text_area :question_text, rows: 3 %></td>
+				</tr>
+				<tr>
+					<td>画像</td>
+					<td colspan="3">
+						<span class="btn btn-file btn-info">
+							<%= f.attachment_field :image %>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>選択肢</td>
 					<%= f.fields_for :choices,@question.choices.build do |choice| %>
-				    <td>
+						<td><%= choice.check_box :is_answer %></td>
+				    <td class="field_for_choice">
               <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
-              <%= choice.check_box :is_answer %>
             </td>
 				  <% end %>
+				  <td class="flex">
+						<div id="add_choice_btn" class="add_choice_btn">+</div>
+						<div id="remove_choice_btn" class="add_choice_btn ml2">-</div>
+				  </td>
+				</tr>
+				<tr>
+					<td></td>
 					<%= f.fields_for :choices,@question.choices.build do |choice| %>
-				    <td>
-				      <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
-				      <%= choice.check_box :is_answer %>
-				    </td>
+						<td><%= choice.check_box :is_answer %></td>
+				    <td class="field_for_choice">
+              <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
+            </td>
 				  <% end %>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
 					<%= f.fields_for :choices,@question.choices.build do |choice| %>
-				    <td>
-				      <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
-				      <%= choice.check_box :is_answer %>
-				    </td>
+						<td><%= choice.check_box :is_answer %></td>
+				    <td class="field_for_choice">
+              <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
+            </td>
 				  <% end %>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
 					<%= f.fields_for :choices,@question.choices.build do |choice| %>
-				    <td>
-				      <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
-				      <%= choice.check_box :is_answer %>
-				    </td>
+						<td><%= choice.check_box :is_answer %></td>
+				    <td class="field_for_choice">
+              <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
+            </td>
 				  <% end %>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>
+						<%= f.submit "新規作成",class:"btn btn-success" %>
+					</td>
 				</tr>
 			</tbody>
 		</table>
-	</div>
-	<div>
-		<%= f.submit "新規作成" %>
-	</div>
-<% end %>
+	<% end %>
+</section>
 <%= javascript_include_tag 'new_change_choice_btn.js' %>
