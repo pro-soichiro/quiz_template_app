@@ -20,6 +20,10 @@ class Admin::QuestionsController < ApplicationController
     gon.choice_index = 4
   end
 
+  def import_get
+
+  end
+
   def import
     Question.import(params[:file])
     redirect_to new_admin_question_path

@@ -303,13 +303,10 @@ table.question_form {
     cursor: inherit;
     background: red;
     opacity: 0;
-
     filter: alpha(opacity=0);
   }
 }
-input[readonly] {
-  cursor: text !important;
-  background-color: white !important;
+input[id=form_question_image] {
 }
 
 

@@ -7,10 +7,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :staffs, only: [:index,:show,:update]
+    get 'questions/import_get'
     resources :questions, only: [:index,:new,:create,:edit,:update,:destroy] do
       collection { post :import }
     end
-    resources :choices, only: [:destroy]
+    resources :choices, only: [:destroy] do
+      collection { post :import }
+    end
 
     resources :categories, only: [:index,:create,:edit,:update,:destroy]
     resources :correct_answer_rates, only:[:create]

@@ -1,14 +1,8 @@
 <section class="inner">
 	<h2 class="section-ttl">問題 新規作成</h2>
-	<div>CSVで読み込む機能</div>
-	<%= form_tag import_admin_questions_path, multipart: true do %>
-	  <%= file_field_tag :file %>
-	  <%= submit_tag "インポート" %>
-	<% end %>
-
 	<%= form_with model: @question, url: admin_questions_path do |f| %>
 		<%= render 'layouts/error_messages', resource: @question %>
-		<table class="question_form">
+		<table class="question_form has_border">
 			<thead>
 				<tr>
 					<th></th>
@@ -20,7 +14,10 @@
 			<tbody>
 				<tr>
 					<td>カテゴリ</td>
-					<td colspan="3"><%= f.collection_select :category_id, Category.all, :id, :name %></td>
+					<td colspan="2"><%= f.collection_select :category_id, Category.all, :id, :name %></td>
+					<td>
+						<%= link_to "CSV Import", admin_questions_import_get_path ,class: "btn btn-primary" %>
+					</td>
 				</tr>
 				<tr>
 					<td>問題文</td>
@@ -30,6 +27,7 @@
 					<td>画像</td>
 					<td colspan="3">
 						<span class="btn btn-file btn-info">
+							<%= f.label :image ,"ファイルを選択"  %>
 							<%= f.attachment_field :image %>
 						</span>
 					</td>

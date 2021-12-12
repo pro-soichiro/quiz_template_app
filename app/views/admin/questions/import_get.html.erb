@@ -1,0 +1,21 @@
+<section class="inner">
+  <h2 class="section-ttl">CSV 問題の新規作成</h2>
+  <p>このページではCSVやGoogleスプレッドシートによる問題の一括作成が可能です。</p>
+  <%= form_tag import_admin_questions_path, multipart: true do %>
+    <p>問題</p>
+    <span class="btn btn-info btn-file">
+      <%= label_tag :file ,"ファイルを選択" %>
+  	  <%= file_field_tag :file %>
+    </span>
+	  <%= submit_tag "インポート" %>
+	<% end %>
+  <%= form_tag import_admin_choices_path, multipart: true do %>
+    <p>選択肢</p>
+    <span class="btn btn-info btn-file">
+      <%= label_tag :file ,"ファイルを選択" %>
+  	  <%= file_field_tag :file %>
+    </span>
+	  <%= submit_tag "インポート" %>
+	<% end %>
+	<%= link_to "新規作成画面に戻る" , new_admin_question_path ,class: "btn btn-primary" %>
+</section>

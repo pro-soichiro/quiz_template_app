@@ -5,4 +5,9 @@ class Admin::ChoicesController < ApplicationController
     choice.destroy
 		redirect_to edit_admin_question_path(question)
   end
+  
+  def import
+    Choice.import(params[:file])
+    redirect_to new_admin_question_path
+  end
 end
