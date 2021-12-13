@@ -14,6 +14,9 @@
 *= require_self
 */
 
+@import 'font-awesome-sprockets';
+@import "font-awesome";
+
 #error_explanation {
   color: red;
   padding-bottom: 20px;
@@ -306,9 +309,9 @@ table.question_form {
     filter: alpha(opacity=0);
   }
 }
-input[id=form_question_image] {
+i {
+  cursor: pointer;
 }
-
 
 
 
@@ -343,15 +346,6 @@ input[id=form_question_image] {
   color: blue;
 }
 
-.add_choice_btn {
-  font-size: 30px;
-  cursor: pointer;
-  width: 30px;
-  text-align: center;
-  line-height: 30px;
-  background-color: #EFEFEF;
-  border-radius: 50%;
-}
 
 .hidden {
   display: none;

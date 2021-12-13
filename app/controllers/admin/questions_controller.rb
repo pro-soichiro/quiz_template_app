@@ -33,7 +33,7 @@ class Admin::QuestionsController < ApplicationController
 		@question = Form::Question.find(params[:id])
 		choice_index = @question.choices.count
 
-		gon.choice_index = choice_index
+		gon.choice_index = choice_index + 1
 		@choice_index = choice_index
 
 		@choices = Choice.where(question_id: @question.id)

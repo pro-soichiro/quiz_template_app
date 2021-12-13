@@ -2,7 +2,7 @@
 	<h2 class="section-ttl">問題 新規作成</h2>
 	<%= form_with model: @question, url: admin_questions_path do |f| %>
 		<%= render 'layouts/error_messages', resource: @question %>
-		<table class="question_form has_border">
+		<table class="question_form">
 			<thead>
 				<tr>
 					<th></th>
@@ -36,13 +36,13 @@
 					<td>選択肢</td>
 					<%= f.fields_for :choices,@question.choices.build do |choice| %>
 						<td><%= choice.check_box :is_answer %></td>
-				    <td class="field_for_choice">
-              <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
-            </td>
+					    <td class="field_for_choice">
+	              <%= choice.text_field :choice_text,:placeholder => "選択肢を入力してください" %>
+	            </td>
 				  <% end %>
 				  <td class="flex">
-						<div id="add_choice_btn" class="add_choice_btn">+</div>
-						<div id="remove_choice_btn" class="add_choice_btn ml2">-</div>
+						<i class="fas fa-plus fa-2x"  id="add_choice_btn" ></i>
+						<i class="fas fa-minus fa-2x ml2" id="remove_choice_btn"></i>
 				  </td>
 				</tr>
 				<tr>
