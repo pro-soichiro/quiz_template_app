@@ -312,7 +312,20 @@ table.question_form {
 i {
   cursor: pointer;
 }
-
+.black {
+  color: block;
+}
+table.staff_entrance {
+  width: 100%;
+  thead {
+    th:first-child {
+      width: 30%;
+    }
+    // th:last-child {
+    //   width: 10%;
+    // }
+  }
+}
 
 
 

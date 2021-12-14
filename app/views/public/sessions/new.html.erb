@@ -1,18 +1,30 @@
-<h2>ログイン　テスト</h2>
-<%= form_with model: @staff, url: staff_session_path, local: true do |f| %>
-  <table>
-    <tr>
-      <th>E-mail</th>
-      <td colspan="2"><%= f.text_field :email,:placeholder =>"sample@sample.com" %></td>
-    </tr>
-    <tr>
-      <th>パスワード(6文字以上)</th>
-      <td colspan="2"><%= f.password_field :password %></td>
-    </tr>
-  </table>
+<section class="inner">
+  <h2 class="section-ttl">ログイン</h2>
+  <%= form_with model: @staff, url: staff_session_path, local: true do |f| %>
+    <table class="staff_entrance">
+      <thead>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>E-mail</td>
+          <td><%= f.text_field :email,:placeholder =>"sample@sample.com" %></td>
+        </tr>
+        <tr>
+          <td>パスワード(6文字以上)</td>
+          <td><%= f.password_field :password %></td>
+        </tr>
+        <tr>
+          <td>
 
-  <div class="actions">
-    <%= f.submit "ログイン" %>
-  </div>
-<% end %>
-
+          </td>
+          <td><%= f.submit "ログイン" ,class:"btn btn-success" %></td>
+        </tr>
+        <tr>
+          <td colspan="2">初めての方は<%= link_to "こちら",new_staff_registration_path %>からアカウントを作成してください。</td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</section>

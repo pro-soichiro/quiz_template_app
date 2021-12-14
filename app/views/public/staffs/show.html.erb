@@ -1,51 +1,67 @@
 <section class="inner">
-    <% if flash[:notice] %>
-      <p class="text-active"><%= flash[:notice] %></p>
-    <% end %>
-  <h2><%= @staff.full_name %></h2>
-  <div class="flex">
+  <h2 class="section-ttl"><%= @staff.full_name %></h2>
+  <div class="staff_info_container flex justify-around mt2">
     <div>
       <canvas id="myChart"></canvas>
-      <div>
-        最終ログイン日時
-        <%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %>
-      </div>
-      <div>
-        正答率
-        <%= @staff.correct_rates %>%
-      </div>
-      <div>
-        総達成率
-        <%= @staff.achievement_rates %>%
-      </div>
-    </div>
-    <div>
-      <table>
+      <table class="staff_info">
         <thead>
-          <tr>
-            <th></th>
-            <th>名前</th>
-            <th>フリガナ</th>
-            <th>E-mail</th>
-            <th></th>
-            <th>
-              誤答問題数
-              <%= @achievement_rates_count %>件
-            </th>
-          </tr>
+          <th></th>
+          <th></th>
         </thead>
         <tbody>
           <tr>
+            <td>最終ログイン日時</td>
+            <td><%= @staff.current_sign_in_at.strftime("%Y/%m/%d") %></td>
+          </tr>
+          <tr>
+            <td>正答率</td>
+            <td><%= @staff.correct_rates %>%</td>
+          </tr>
+          <tr>
+            <td>総達成率</td>
+            <td><%= @staff.achievement_rates %>%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table class="staff_info">
+        <thead>
+          <th></th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>プロフィール画像</td>
             <td><%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %></td>
-            <td><%= @staff.full_name %></td>
-            <td><%= @staff.full_name_kana %></td>
+          </tr>
+          <tr>
+            <td>名前</td>
+            <td><%=  @staff.full_name %></td>
+          </tr>
+          <tr>
+            <td>フリガナ</td>
+            <td><%=  @staff.full_name_kana %></td>
+          </tr>
+          <tr>
+            <td>Email</td>
             <td><%= @staff.email %></td>
-            <td>
-              <%= link_to "⚙", edit_staff_path(@staff) %>
-            </td>
-            <td>
-              <%= link_to "間違えた問題を見る", staffs_path %>
-            </td>
+          </tr>
+          <tr>
+            <td><%= link_to edit_staff_path(@staff),class:"btn-edit" do %><i class="fas fa-cog fa-2x"></i><% end %></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>誤答問題数<%= @achievement_rates_count %>件</td>
+            <td><%= link_to "間違えた問題を見る", staffs_path, class:"btn btn-caution" %></td>
           </tr>
         </tbody>
       </table>

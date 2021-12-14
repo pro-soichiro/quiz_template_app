@@ -1,12 +1,16 @@
-<h2>About</h2>
-<p>
-  このアプリケーションは店舗情報や商品知識を蓄え、<br />
-  さらなるサービスの向上を目指すための学習サービスです。<br />
-  <br />
-  問題を解くことで、あなた自身の理解度を確認することができます。<br />
-  また、他スタッフの正答率をランキング形式でみることも可能です。<br />
-  <br />
-  今すぐ始めましょう。<br />
-</p>
-<%= link_to "新規登録",new_staff_registration_path %>
-<%= link_to "ログイン",new_staff_session_path %>
+<section class="inner">
+  <h2 class="section-ttl">About</h2>
+  <p class="text-center mb2">
+    このアプリケーションは店舗情報や商品知識を蓄え、<br />
+    さらなるサービスの向上を目指すための学習サービスです。<br />
+    <br />
+    問題を解くことで、あなた自身の理解度を確認することができます。<br />
+    また、他スタッフの正答率をランキング形式でみることも可能です。<br />
+    <br />
+    今すぐ始めましょう。<br />
+  </p>
+  <div class="text-center">
+    <%= link_to "新規登録",new_staff_registration_path,class:"btn btn-primary" %>
+    <%= link_to "ログイン",new_staff_session_path,class:"btn btn-success ml2" %>
+  </div>
+</section>

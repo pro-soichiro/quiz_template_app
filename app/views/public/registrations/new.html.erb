@@ -1,32 +1,47 @@
-<h2>新規会員登録</h2>
-<%= form_with model: @staff, url: staff_registration_path, local: true do |f| %>
-<%= render 'layouts/error_messages', resource: @staff %>
-  <table>
-    <tr>
-      <th>名前</th>
-      <td><%= f.text_field :last_name,:placeholder =>"姓" %></td>
-      <td><%= f.text_field :first_name,:placeholder =>"名" %></td>
-    </tr>
-    <tr>
-      <th>フリガナ</th>
-      <td><%= f.text_field :last_name_kana,:placeholder =>"セイ" %></td>
-      <td><%= f.text_field :first_name_kana,:placeholder =>"メイ" %></td>
-    </tr>
-    <tr>
-      <th>E-mail</th>
-      <td colspan="2"><%= f.email_field :email,:placeholder =>"sample@mail.com" %></td>
-    </tr>
-    <tr>
-      <th>パスワード(6文字以上)</th>
-      <td colspan="2"><%= f.password_field :password %></td>
-    </tr>
-    <tr>
-      <th>パスワード(確認用)</th>
-      <td colspan="2"><%= f.password_field :password_confirmation %></td>
-    </tr>
-  </table>
-
-  <div class="actions">
-    <%= f.submit "新規登録" %>
-  </div>
-<% end %>
+<section class="inner">
+  <h2 class="section-ttl">新規会員登録</h2>
+  <%= form_with model: @staff, url: staff_registration_path, local: true do |f| %>
+    <%= render 'layouts/error_messages', resource: @staff %>
+    <table class="staff_entrance">
+      <thead>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>名前</td>
+          <td><%= f.text_field :last_name,:placeholder =>"姓" %></td>
+          <td><%= f.text_field :first_name,:placeholder =>"名" %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>フリガナ</td>
+          <td><%= f.text_field :last_name_kana,:placeholder =>"セイ" %></td>
+          <td><%= f.text_field :first_name_kana,:placeholder =>"メイ" %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>E-mail</td>
+          <td colspan="2"><%= f.email_field :email,:placeholder =>"sample@mail.com" %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>パスワード(6文字以上)</td>
+          <td colspan="2"><%= f.password_field :password %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>パスワード(確認用)</td>
+          <td colspan="2"><%= f.password_field :password_confirmation %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="3">すでにアカウントをお持ちの方は<%= link_to "こちら",new_staff_session_path %>からログインしてください。</td>
+          <td><%= f.submit "新規登録" ,class: "btn btn-success" %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</section>

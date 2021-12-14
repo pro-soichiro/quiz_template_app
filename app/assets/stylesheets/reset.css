@@ -149,8 +149,8 @@ a {
 }
 .btn-caution {
   color: #fff;
-  background-color: #deb835;
-  border-color: #cf9f25;
+  background-color: gold;
+  border-color: goldenrod;
 }
 .btn-danger {
   color: #fff;
@@ -161,6 +161,9 @@ a {
   color: #fff;
   background-color: #ccc;
   border-color: #bbb;
+}
+.btn-edit {
+  color: gray;
 }
 .text-red {
   color: red;

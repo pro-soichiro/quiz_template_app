@@ -17,6 +17,10 @@
             <td>正答率</td>
             <td><%= @staff.correct_rates %>%</td>
           </tr>
+          <tr>
+            <td>総達成率</td>
+            <td><%= @staff.achievement_rates %>%</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -69,7 +73,5 @@
       </table>
     </div>
   </div>
-
-
 </section>
 <%= javascript_include_tag 'chart.js' %>

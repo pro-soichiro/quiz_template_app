@@ -13,6 +13,11 @@ ja:
         choice_text: 選択肢
       category:
         name: カテゴリ名
+      staff:
+        last_name: 姓
+        first_name: 名
+        last_name_kana: セイ
+        first_name_kana: メイ
   date:
     abbr_day_names:
     - 日

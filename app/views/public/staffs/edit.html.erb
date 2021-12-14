@@ -1,3 +1,44 @@
-<h2>マイページ 編集</h2>
-<%= render 'edit_form', staff: @staff, submit: '変更を保存' %>
-
+<section class="inner">
+  <h2 class="section-ttl">登録情報編集</h2>
+  <%= form_with model: @staff, local:true do |f| %>
+  	<%= render 'layouts/error_messages', resource: @staff %>
+    <table class="has_border">
+      <thead>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="2">
+            <%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"150x150" %>
+          </td>
+          <td>
+            プロフィール画像<br />
+            <%= f.attachment_field :image %>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>名前</td>
+          <td><%= f.text_field :last_name %></td>
+          <td><%= f.text_field :first_name %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>フリガナ</td>
+          <td><%= f.text_field :last_name_kana %></td>
+          <td><%= f.text_field :first_name_kana %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><%= f.submit '変更を保存' ,class:"btn btn-success" %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</section>

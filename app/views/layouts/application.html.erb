@@ -17,6 +17,7 @@
         <div class="header-content">
           <%= link_to 'Quiz Template App',staff_path(current_staff),class: "logo", data: {"turbolinks" => false} %>
           <ul class="flex">
+            <p>ようこそ、<%= current_staff.full_name %>さん!</p>
             <li><%= link_to "マイページ", staff_path(current_staff), data: {"turbolinks" => false} %></li>
             <li><%= link_to "問題を解く", questions_categories_path %></li>
             <li><%= link_to "ランキング", correct_answer_rates_path %></li>
