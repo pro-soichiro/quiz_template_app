@@ -2,7 +2,12 @@
   <h2 class="section-ttl">問題カテゴリ</h2>
   <div class="mb3">
     <h3>カテゴリ新規登録</h3>
-    <%= render 'form', category: @category, url: admin_categories_path, submit: '新規作成' %>
+    <%= form_with(model: @category, url: admin_categories_path, local: true) do |f| %>
+      <%= render 'layouts/error_messages', resource: @category %>
+      <%= f.label :name, 'カテゴリ名:' %>
+      <%= f.text_field :name,:placeholder => "カテゴリ名" %>
+    <%= f.submit '新規作成' ,class: "btn btn-success ml2" %>
+<% end %>
   </div>
   <div class="mb3">
     <h3>カテゴリ一覧</h3>

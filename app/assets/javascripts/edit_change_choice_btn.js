@@ -3,7 +3,7 @@
 
 // 問題作成時、選択肢の入力フォーム数を変更できる処理
 
-// $(document).on('turbolinks:load',function () {
+$(document).on('turbolinks:load',function () {
 
   function input_form(index) {
     const html =  `<tr>
@@ -51,5 +51,5 @@
 
 
 
-// });
+});
 

@@ -35,7 +35,9 @@
 						<tr>
 							<td><%= question.id %></td>
 							<td>
-								<%= attachment_image_tag question,:image, :fill, 100, 100,format: 'jpeg' %>
+								<% if question.image_id %>
+									<%= attachment_image_tag question,:image, :fill, 100, 100,format: 'jpeg' %><br />
+								<% end %>
 								<%= question.question_text %>
 							</td>
 							<td>
@@ -57,7 +59,8 @@
 							  										class: "btn btn-caution mb2" %><br/>
 							  <%= link_to "削除", admin_question_path(question),
 							  										method: :delete,
-							  										class: "btn btn-danger" %>
+							  										class: "btn btn-danger",
+							  										"data-confirm" => "問題番号【#{question.id}】の問題を削除します。よろしいでしょうか？"%>
 							</td>
 						</tr>
 					<% end %>

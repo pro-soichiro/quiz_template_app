@@ -28,7 +28,7 @@
         </thead>
         <tbody>
           <tr>
-            <td></td>
+            <td>プロフィール画像</td>
             <td><%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"100x100" %></td>
           </tr>
           <tr>
@@ -53,9 +53,15 @@
             <td><%= link_to "スタッフ一覧", admin_staffs_path,class: "btn btn-success" %></td>
             <td>
               <% if @staff.status? %>
-                <%= link_to "退職設定", admin_staff_path(@staff), :method => "PATCH" ,class: "btn btn-danger" %>
+                <%= link_to "退職設定", admin_staff_path(@staff),
+                                        :method => "PATCH" ,
+                                        class: "btn btn-danger",
+                                        "data-confirm" => "#{@staff.full_name}さんを退職状態にします。よろしいでしょうか？" %>
               <% else %>
-                <%= link_to "復職設定", admin_staff_path(@staff), :method => "PATCH" ,class: "btn btn-caution" %>
+                <%= link_to "復職設定", admin_staff_path(@staff),
+                                        :method => "PATCH" ,
+                                        class: "btn btn-caution",
+                                        "data-confirm" => "#{@staff.full_name}さんを復職状態にします。よろしいでしょうか？" %>
               <% end %>
             </td>
           </tr>

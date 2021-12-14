@@ -35,8 +35,6 @@ class Admin::QuestionsController < ApplicationController
 
 		gon.choice_index = choice_index + 1
 		@choice_index = choice_index
-
-		@choices = Choice.where(question_id: @question.id)
   end
 
   def create
@@ -44,6 +42,7 @@ class Admin::QuestionsController < ApplicationController
     if @question.save
       redirect_to action: :index,category: @question.category_id
     else
+      gon.choice_index = 4
       render :new
     end
   end
@@ -52,6 +51,10 @@ class Admin::QuestionsController < ApplicationController
 		if @question.update(question_params)
 			redirect_to action: :index,category: @question.category_id
 		else
+  		choice_index = @question.choices.count
+
+  		gon.choice_index = choice_index + 1
+  		@choice_index = choice_index
 			render :edit
 		end
   end

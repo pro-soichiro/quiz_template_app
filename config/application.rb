@@ -19,5 +19,6 @@ module QuizTemplateApp
     # the framework and any gems in your application.
 
     # config.logger = Logger.new(STDOUT)
+    config.i18n.default_locale = :ja
   end
 end

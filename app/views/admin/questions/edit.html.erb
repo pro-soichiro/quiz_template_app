@@ -1,6 +1,6 @@
 <section class="inner">
 	<h2 class="section-ttl">問題 編集</h2>
-	<%= form_with model: @question, url: admin_question_path do |f| %>
+	<%= form_with model: @question, url: admin_question_path, local: true do |f| %>
 		<%= render 'layouts/error_messages', resource: @question %>
 		<table class="question_form">
 			<thead>
