@@ -1,31 +1,40 @@
-<h2>正答率ランキング</h2>
-<%= @category %>
-<%= form_with(url: {controller: 'correct_answer_rates', action: 'index' },local: true) do |f| %>
-  <%= f.label(:category, "表示したいランキングのカテゴリを選んでください。") %>
-  <%= f.collection_select :category, @categories ,:id,:name, {prompt: "総正答率",selected: @category_id} %>
-	<%= f.submit "表示" %>
-<% end %>
-<table>
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>名前</th>
-      <th>正答率</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @staffs.each do |staff| %>
-      <tr>
-        <td>
-          <%= staff.id %>
-        </td>
-        <td>
-          <%= staff.full_name %>
-        </td>
-        <td>
-          <%= staff.correct_rates(@category_id) %>%
-        </td>
-      </tr>
+<section class="inner">
+  <h2 class="section-ttl">
+    <% if @category %>
+      <%= @category.name %>
     <% end %>
-  </tbody>
-</table>
+    正答率ランキング
+  </h2>
+  <%= form_with(url: {controller: 'correct_answer_rates', action: 'index' },local: true) do |f| %>
+    <%= f.label(:category, "表示したいランキングのカテゴリを選んでください。") %>
+    <%= f.collection_select :category, @categories ,:id,:name, {prompt: "総正答率",selected: @category_id} %>
+  	<%= f.submit "表示",class: "btn btn-info" %>
+  <% end %>
+  <table class="ranking mt2 has_border_bottom">
+    <thead>
+      <tr>
+        <th>順位</th>
+        <th>名前</th>
+        <th>正答率</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @staffs.each_with_index do |staff,index| %>
+        <tr>
+          <td>
+            <div class="bold circle">
+              <%= index + 1 %>位
+            </div>
+          </td>
+          <td>
+            <%= staff.full_name %>
+          </td>
+          <td>
+            <%= staff.correct_rates(@category_id) %>%
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @staffs %>
+</section>

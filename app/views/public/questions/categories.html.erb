@@ -1,10 +1,11 @@
-<h2>問題カテゴリ選択</h2>
-  <%= notice %>
-  <p>解きたい問題のカテゴリを選んでください。</p>
-
-  <% @categories.each do |category| %>
-    <div>
-      <%= link_to category.name ,new_question_path(id: category.id) %>
+<section class="inner">
+  <h2 class="section-ttl">問題カテゴリ選択</h2>
+    <p>解きたい問題のカテゴリを選んでください。</p>
+    <span id="error_explanation"><%= alert %></span>
+    <div class="categories_bar">
+      <% @categories.each do |category| %>
+          <%= link_to category.name ,new_question_path(id: category.id) %>
+      <% end %>
     </div>
-  <% end %>
-</table>
+  </table>
+</section>

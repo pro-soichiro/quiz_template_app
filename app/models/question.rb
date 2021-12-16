@@ -13,7 +13,7 @@ class Question < ApplicationRecord
 
 	accepts_nested_attributes_for :choices , allow_destroy: true
 
-	ransacker :id do Arel.sql("CAST(#{table_name}.id as CHAR)") end
+	ransacker :id do Arel.sql("CAST(#{table_name}.id as CHAR(8))") end
 
   # importによる問題作成
   def self.import(file)

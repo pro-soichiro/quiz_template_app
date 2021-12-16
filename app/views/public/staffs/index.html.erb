@@ -1,29 +1,35 @@
-<h1>誤答リスト</h1>
-<p>誤答問題数<%= @achievement_rates.count %>件</p>
-<table>
-  <thead>
-    <tr>
-      <th>カテゴリ</th>
-      <th>問題番号</th>
-      <th>問題</th>
-      <th>正解</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @achievement_rates.each do |achievement_rate| %>
-    <tr>
-      <td><%= achievement_rate.category.name %></td>
-      <td><%= achievement_rate.question_id %></td>
-      <td>
-        <%= attachment_image_tag achievement_rate.question,:image, :fill, 100, 100,format: 'jpeg' %>
-        <%= achievement_rate.question.question_text %>
-      </td>
-      <% achievement_rate.question.choices.each do |choice| %>
-        <% if choice.is_answer %>
-          <td><%= choice.choice_text %></td>
-        <% end %>
+<section class="inner">
+  <h2 class="section-ttl">誤答リスト<span class="ttl-span ml2">誤答問題数<%= @wrong_answers_count %>件</span></h2>
+  <table class="wrong_answer_index has_border_bottom">
+    <thead>
+      <tr>
+        <th>カテゴリ</th>
+        <th>問題番号</th>
+        <th>問題</th>
+        <th>正解</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @wrong_answers.each do |achievement_rate| %>
+      <tr>
+        <td><%= achievement_rate.category.name %></td>
+        <td><%= achievement_rate.question_id %></td>
+        <td>
+          <% if achievement_rate.question.image_id %>
+            <%= attachment_image_tag achievement_rate.question,:image, :fill, 100, 100,format: 'jpeg' %><br />
+          <% end %>
+          <%= achievement_rate.question.question_text %>
+        </td>
+        <td>
+          <% achievement_rate.question.choices.each do |choice| %>
+            <% if choice.is_answer %>
+              <%= choice.choice_text %><br />
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
       <% end %>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  <%= paginate @wrong_answers %>
+</section>

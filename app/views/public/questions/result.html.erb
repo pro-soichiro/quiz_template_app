@@ -1,34 +1,36 @@
-<h1>結果</h1>
-<p><%= session[:category]["name"] %></p>
-<p id="question"><%= @total %> 問中 <%= @correct %> 問正解しました！</p>
-<p id="score">あなたの正答率は <%= @score %>%です！</p>
-
-<% @questions.each_with_index do |question,index| %>
-  <p>
-    <%= index +1 %>問目.
-    <%= question.question_text %>
-    <%= attachment_image_tag question,:image,:fill, 100, 100,format: 'jpeg' %>
+<section class="inner">
+  <h2 class="section-ttl">【<%= session[:category]["name"] %>】 結果</h2>
+  <p class="fz18">
+    <%= @total %> 問中 <%= @correct %> 問正解しました！<br/>
+    あなたの正答率は <%= @score %>%です！
   </p>
-  <ul>
-    <% question.choices.each do |choice| %>
-      <% if @selected.include?(choice.id) && choice.is_answer %>
-        <li class="correct feedback-choice">あなたの答え
-      <% elsif @selected.include?(choice.id) && choice.is_answer == false %>
-        <li class="incorrect feedback-choice">あなたの答え
-      <% elsif choice.is_answer %>
-        <li class="correct feedback-choice">正解
-      <% else %>
-        <li class="feedback-choice">
-      <% end %>
-      <%= choice["choice_text"] %>
-      </li>
+  <div class="questions_content">
+    <% @questions.each_with_index do |question,index| %>
+      <div>
+        <p>
+          【<%= index + 1 %>問目】
+          <% if question.image_id %>
+            <%= attachment_image_tag question, :image,:fill, 100, 100,format: 'jpeg' %><br />
+          <% end %>
+          <%= question.question_text %><br /><span>(問題番号<%= question.id %>)</span>
+        </p>
+        <% question.choices.each do |choice| %>
+          <% if @selected.include?(choice.id) && choice.is_answer %>
+            <p class="correct">あなたの答え
+            <%= choice["choice_text"] %>
+          <% elsif @selected.include?(choice.id) && choice.is_answer == false %>
+            <p class="incorrect">あなたの答え
+            <%= choice["choice_text"] %>
+          <% elsif choice.is_answer %>
+            <p class="correct">正解
+            <%= choice["choice_text"] %>
+          <% end %>
+          </p>
+        <% end %>
+      </div>
     <% end %>
-  </ul>
-<% end %>
-
-
-<%= form_tag({:controller => "questions", :action => "categories"}, :method => "get") do %>
-  <div class="center">
-	 <%= submit_tag("カテゴリ選択画面", :class => "submit") %>
   </div>
-<% end %>
+  <%= form_tag({:controller => "questions", :action => "categories"}, :method => "get") do %>
+    <%= submit_tag("カテゴリ選択画面",class:"btn btn-primary") %>
+  <% end %>
+</section>

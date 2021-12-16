@@ -97,6 +97,17 @@ a {
   text-align: center;
   margin-top:10px;
 }
+
+.correct {
+  color: red;
+}
+.incorrect {
+  color: blue;
+}
+
+.hidden {
+  display: none;
+}
 @media screen and (min-width: 769px) {
   .wrapper {
     width: 960px;
@@ -109,13 +120,9 @@ a {
 .section-ttl {
   font-size: 32px;
   font-weight: bold;
-  text-align: center;
+  /*text-align: center;*/
   /*padding-top: 50px;*/
   margin-bottom: 30px;
-}
-span.ttl-span {
-  font-size: 20px;
-
 }
 .btn {
   display: inline-block;

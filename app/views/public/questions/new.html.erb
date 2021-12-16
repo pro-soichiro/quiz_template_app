@@ -1,16 +1,13 @@
-<h2><%= session[:category]["name"] %></h2>
-
-<p>
-  この問題は【<%= session[:category]["name"] %>】です。<br />
-</p>
-
-<%= form_tag({:controller => "questions",:action => "start"}) do %>
-  <p><%= label_tag(:number, "解答したい問題数を選んでください。", :id => "question") %></p>
-  <p class="center">
-    <%= select_tag(:number, options_for_select((1..@max).map {|x| [x, x]},{:selected => @max}), :id => "count") %> <br />
-  </p>
-  <%= link_to "問題カテゴリ選択画面へ",questions_categories_path %>
-	<%= submit_tag "開始", data: {"turbolinks" => false}  %>
-<% end %>
-
-
+<section class="inner">
+  <h2 class="section-ttl"><%= session[:category]["name"] %></h2>
+  <p>この問題は【<%= session[:category]["name"] %>】です。</p>
+  <%= form_tag({:controller => "questions",:action => "start"}) do %>
+    <%= label_tag(:number, "解答したい問題数を選んでください。", :id => "question") %><br/>
+    <p>開始ボタンで問題が始まります。</p>
+    <div>
+      <%= select_tag(:number, options_for_select((1..@max).map {|x| [x, x]},{:selected => @max}), :id => "count") %>
+    	<%= submit_tag "開始", class:"btn btn-success ml2", data: {"turbolinks" => false}  %>
+    </div>
+  <% end %>
+  <%= link_to "問題カテゴリ選択画面へ",questions_categories_path ,class:"btn btn-primary" %>
+</section>

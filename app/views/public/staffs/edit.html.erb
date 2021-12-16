@@ -2,7 +2,7 @@
   <h2 class="section-ttl">登録情報編集</h2>
   <%= form_with model: @staff, local:true do |f| %>
   	<%= render 'layouts/error_messages', resource: @staff %>
-    <table class="has_border">
+    <table class="staff_info_edit">
       <thead>
         <th></th>
         <th></th>
@@ -11,10 +11,10 @@
       </thead>
       <tbody>
         <tr>
-          <td colspan="2">
-            <%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"150x150" %>
-          </td>
           <td>
+            <%= attachment_image_tag @staff,:image,format: "jpeg", fallback: "no-image.png",size:"110x110" %>
+          </td>
+          <td colspan="2">
             プロフィール画像<br />
             <%= f.attachment_field :image %>
           </td>

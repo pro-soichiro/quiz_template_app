@@ -10,7 +10,7 @@ class Public::QuestionsController < ApplicationController
     @questions = Question.where(category_id: session[:category])
 
     if @questions.count == 0 then
-      redirect_to({action: :categories},{notice: '問題がまだありません。'})
+      redirect_to({action: :categories},{alert: '問題がまだありません。'})
     elsif @questions.count <= 10 then
       @max = @questions.count
     else
