@@ -23,7 +23,6 @@ class Admin::QuestionsController < ApplicationController
 
   def new
     @question = Form::Question.new
-    gon.choice_index = 4
   end
 
   def import_get

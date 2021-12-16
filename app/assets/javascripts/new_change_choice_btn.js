@@ -28,7 +28,7 @@ $(document).on('turbolinks:load',function () {
   }
 
   // idやinputを作るための変数
-  let input_index = gon.choice_index;
+  let input_index = 4;
 
   function check_input_index(input_index){
     if (input_index == 2 ) {
