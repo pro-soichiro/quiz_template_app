@@ -1,9 +1,10 @@
 class Admin::StaffsController < ApplicationController
   before_action :authenticate_admin!
   before_action :ensure_staff, only: [:show,:update]
+  before_action :set_q,only: [:index]
 
   def index
-    @staffs = Staff.all
+    @results = @q.result
   end
 
   def show
@@ -47,6 +48,10 @@ class Admin::StaffsController < ApplicationController
   end
 
   private
+
+  def set_q
+    @q = Staff.ransack(params[:q])
+  end
 
   def ensure_staff
     @staff = Staff.find(params[:id])

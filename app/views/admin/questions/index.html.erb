@@ -7,11 +7,22 @@
 	</div>
 
 	<div class="content">
-		<% if params[:category] %>
-			<h2 class="section-ttl"><%= @category.name %>の問題一覧 (全<%= @all_questions_count %>問)</h2>
-		<% else %>
-			<h2 class="section-ttl">最近追加された問題</h2>
-		<% end %>
+		<div class="flex justify-between">
+			<div>
+				<% if params[:category] %>
+					<h2 class="section-ttl"><%= @category.name %> <span class="ttl-span">(全<%= @all_questions_count %>問)</span></h2>
+				<% elsif params[:q] %>
+					<h2 class="section-ttl">検索結果 <span class="ttl-span">(全<%= @all_questions_count %>問)</span></h2>
+				<% else %>
+					<h2 class="section-ttl">最近追加された問題</h2>
+				<% end %>
+			</div>
+			<%= search_form_for @search,url: admin_questions_path do |f| %>
+			  <%= f.label :id_cont, 'ID検索' %>
+			  <%= f.search_field :id_cont, class:"ml2"%>
+			  <%= f.submit '検索',class:"btn btn-info" %>
+			<% end %>
+		</div>
 
 		<h3 class="text-right">
 			<%= link_to "新規作成", new_admin_question_path , data: {"turbolinks" => false} ,class: "btn btn-success" %>
@@ -70,7 +81,7 @@
 			<h3>問題はまだありません。</h3>
 		<% end %>
 
-		<% if params[:category] %>
+		<% if params[:category] || params[:q] %>
 			<%= paginate @questions %>
 		<% end %>
 	</div>

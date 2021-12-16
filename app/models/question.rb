@@ -13,6 +13,8 @@ class Question < ApplicationRecord
 
 	accepts_nested_attributes_for :choices , allow_destroy: true
 
+	ransacker :id do Arel.sql("CAST(#{table_name}.id as CHAR)") end
+
   # importによる問題作成
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|

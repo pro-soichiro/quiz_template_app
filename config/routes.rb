@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     resources :staffs, only: [:index,:show,:update]
     get 'questions/import_get'
     resources :questions, only: [:index,:new,:create,:edit,:update,:destroy] do
-      collection { post :import }
+      collection do
+        post :import
+      end
     end
     resources :choices, only: [:destroy] do
       collection { post :import }

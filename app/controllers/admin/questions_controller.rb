@@ -1,18 +1,24 @@
 class Admin::QuestionsController < ApplicationController
   before_action :authenticate_admin!
   before_action :ensure_question, only: [:edit,:update,:destroy]
+  before_action :set_q, only: [:index]
 
   def index
     @categories = Category.all
+    @search = Question.ransack(params[:q])
+
     if params[:category]
       @category = @categories.find(params[:category])
       all_questions = Question.where(category_id: @category).order(created_at: :desc)
+    elsif params[:q]
+      all_questions = @search.result
     else
       all_questions = Question.order(created_at: :desc).limit(3)
     end
 
     @questions = all_questions.page(params[:page]).per(3)
     @all_questions_count = all_questions.count
+
   end
 
   def new
@@ -67,6 +73,10 @@ class Admin::QuestionsController < ApplicationController
 
   private
 
+  def set_q
+    @q = Question.ransack(params[:q])
+  end
+
   def question_params
     params
 			.require(:form_question)
@@ -79,4 +89,5 @@ class Admin::QuestionsController < ApplicationController
   def ensure_question
     @question = Form::Question.find(params[:id])
   end
+
 end

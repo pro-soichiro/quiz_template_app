@@ -1,5 +1,12 @@
 <section class="inner">
-  <h2 class="section-ttl">スタッフ一覧</h2>
+  <div class="flex justify-between">
+    <h2 class="section-ttl">スタッフ一覧</h2>
+    <%= search_form_for @q, url: admin_staffs_path do |f| %>
+      <%= f.label :last_name_or_first_name_or_last_name_kana_or_first_name_kana_cont, '名前検索' %>
+      <%= f.search_field :last_name_or_first_name_or_last_name_kana_or_first_name_kana_cont,class:"ml2" %>
+      <%= f.submit '検索',class:"btn btn-info" %>
+    <% end %>
+  </div>
   <table class="admin_staff_index has_border">
     <thead>
       <tr>
@@ -12,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @staffs.each do |staff| %>
+      <% @results.each do |staff| %>
         <tr>
           <td><%= staff.id %></td>
           <td><%= link_to staff.full_name,admin_staff_path(staff), data: {"turbolinks" => false} %></td>
