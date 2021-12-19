@@ -10,8 +10,8 @@ class Staff < ApplicationRecord
   has_many :correct_answer_rates,  dependent: :destroy
   attachment :image
 
-  validates :last_name, presence: true
-  validates :first_name, presence: true
+  validates :last_name, presence: true, length: { minimum: 1, maximum: 4 }
+  validates :first_name, presence: true, length: { minimum: 1, maximum: 4 }
   validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
   validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
   validates :email, presence: true, uniqueness: true

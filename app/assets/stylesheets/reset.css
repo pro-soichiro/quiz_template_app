@@ -37,6 +37,9 @@ footer, header, nav, section {
 }
 body {
   line-height: 1;
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
 }
 ol, ul {
   list-style: none;

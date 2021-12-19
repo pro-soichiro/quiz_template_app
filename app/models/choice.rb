@@ -1,5 +1,6 @@
 class Choice < ApplicationRecord
   belongs_to :question
+  validates :question_id, presence: true
   validates :choice_text, presence: true
 
   # importによる問題作成
