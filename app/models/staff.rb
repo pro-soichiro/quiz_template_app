@@ -6,8 +6,8 @@ class Staff < ApplicationRecord
 
   extend OrderAsSpecified
 
-  has_many :achievement_rates,      dependent: :destroy
-  has_many :correct_answer_rates,  dependent: :destroy
+  has_many :achievement_rates, dependent: :destroy
+  has_many :correct_answer_rates, dependent: :destroy
   attachment :image
 
   validates :last_name, presence: true, length: { minimum: 1, maximum: 4 }
@@ -26,7 +26,7 @@ class Staff < ApplicationRecord
 
   # 達成率メソッド
   def achievement_rates(category_id = nil)
-    true_count_data = AchievementRate.where(staff_id: self.id).where(status: true)
+    true_count_data = AchievementRate.where(staff_id: id).where(status: true)
 
     if category_id
       true_count = true_count_data.where(category_id: category_id).count
@@ -36,21 +36,28 @@ class Staff < ApplicationRecord
       all_count = Question.all.count
     end
 
-    achievement_rates = ( true_count * 100 / all_count rescue 0)
-    return achievement_rates
+    achievement_rates = begin
+                           true_count * 100 / all_count
+                        rescue
+                          0
+                         end
+    achievement_rates
   end
 
   # 正答率メソッド
   def correct_rates(category_id = nil)
     if category_id
-      correct_answer_rates = CorrectAnswerRate.where(staff_id: self.id).where(category_id: category_id)
+      correct_answer_rates = CorrectAnswerRate.where(staff_id: id).where(category_id: category_id)
     else
-      correct_answer_rates = CorrectAnswerRate.where(staff_id: self.id)
+      correct_answer_rates = CorrectAnswerRate.where(staff_id: id)
     end
     all_count = correct_answer_rates.count
     correct_count = correct_answer_rates.where(status: true).count
-    correct_rates = (correct_count * 100 / all_count rescue 0)
-    return correct_rates
+    correct_rates = begin
+                      correct_count * 100 / all_count
+                    rescue
+                      0
+                    end
+    correct_rates
   end
-
 end

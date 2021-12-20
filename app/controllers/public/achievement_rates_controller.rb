@@ -8,8 +8,9 @@ class Public::AchievementRatesController < ApplicationController
   end
 
   private
+
   def achievement_rate_params
-    params.require(:achievement_rate).permit( :staff_id,
+    params.require(:achievement_rate).permit(:staff_id,
                                               :category_id,
                                               :question_id,
                                               :selected,

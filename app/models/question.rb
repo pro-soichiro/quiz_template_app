@@ -1,5 +1,4 @@
 class Question < ApplicationRecord
-
   belongs_to :category
 
   has_many :choices,                dependent: :destroy
@@ -11,25 +10,19 @@ class Question < ApplicationRecord
   validates :category_id, presence: true
   validates :question_text, presence: true
 
-	accepts_nested_attributes_for :choices , allow_destroy: true
+  accepts_nested_attributes_for :choices, allow_destroy: true
 
-	ransacker :id do Arel.sql("CAST(#{table_name}.id as CHAR(8))") end
+  ransacker :id do
+    Arel.sql("CAST(#{table_name}.id as CHAR(8))")
+  end
 
-  # importによる問題作成
-  def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
-      # IDが見つかれば、レコードを呼び出し、見つかれなければ、新しく作成
-      question = find_by(id: row["id"]) || new
-      # CSVからデータを取得し、設定する
-      question.attributes = row.to_hash.slice(*updatable_attributes)
-      # 保存する
-      question.save
+  def true_answer_check(q)
+    @array = []
+    q.choices.each do |choice|
+      @array << choice.is_answer
+    end
+    if @array.none?
+      q.choices[0].is_answer = true
     end
   end
-
-  # importによる更新を許可
-  def self.updatable_attributes
-    ["id", "category_id", "question_text"]
-  end
-
 end

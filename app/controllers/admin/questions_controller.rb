@@ -1,6 +1,6 @@
 class Admin::QuestionsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :ensure_question, only: [:edit,:update,:destroy]
+  before_action :ensure_question, only: [:edit, :update, :destroy]
   before_action :set_q, only: [:index]
 
   def index
@@ -18,57 +18,44 @@ class Admin::QuestionsController < ApplicationController
 
     @questions = all_questions.page(params[:page]).per(3)
     @all_questions_count = all_questions.count
-
   end
 
   def new
-    @question = Form::Question.new
-  end
-
-  def import_get
-
-  end
-
-  def import
-    Question.import(params[:file])
-    redirect_to new_admin_question_path
-  end
-
-  def edit
-		@question = Form::Question.find(params[:id])
-		choice_index = @question.choices.count
-
-		gon.choice_index = choice_index + 1
-		@choice_index = choice_index
+    @question = Question.new
+    4.times { @question.choices.build }
   end
 
   def create
-    @question = Form::Question.new(question_params)
+    @question = Question.new(question_params)
+    @question.true_answer_check(@question)
     if @question.save
-      redirect_to action: :index,category: @question.category_id
+      redirect_to action: :index, category: @question.category_id
     else
-      gon.choice_index = 4
       render :new
     end
   end
 
-  def update
-		if @question.update(question_params)
-			redirect_to action: :index,category: @question.category_id
-		else
-  		choice_index = @question.choices.count
+  def edit
+    choice_index = @question.choices.count
+    gon.choice_index = choice_index + 1
+  end
 
-  		gon.choice_index = choice_index + 1
-  		@choice_index = choice_index
-			render :edit
-		end
+  def update
+    @question.true_answer_check(@question)
+    if @question.update_attributes(question_params)
+      redirect_to action: :index, category: @question.category_id
+    else
+      choice_index = @question.choices.count
+
+      gon.choice_index = choice_index + 1
+      render :edit
+    end
   end
 
   def destroy
-		Question.find(params[:id]).destroy
-		redirect_to action: :index,category: @question.category_id
+    Question.find(params[:id]).destroy
+    redirect_to action: :index, category: @question.category_id
   end
-
 
   private
 
@@ -77,16 +64,22 @@ class Admin::QuestionsController < ApplicationController
   end
 
   def question_params
-    params
-			.require(:form_question)
-			.permit(
-				Form::Question::REGISTRABLE_ATTRIBUTES +
-				[choices_attributes: Form::Choice::REGISTRABLE_ATTRIBUTES]
-			)
+    params.
+      require(:question).
+      permit(
+        :question_text,
+        :category_id,
+        :image,
+        choices_attributes: [
+          :id,
+          :choice_text,
+          :is_answer,
+          :_destroy,
+        ]
+      )
   end
 
   def ensure_question
-    @question = Form::Question.find(params[:id])
+    @question = Question.find(params[:id])
   end
-
 end

@@ -1,7 +1,7 @@
 class Admin::StaffsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :ensure_staff, only: [:show,:update]
-  before_action :set_q,only: [:index]
+  before_action :ensure_staff, only: [:show, :update]
+  before_action :set_q, only: [:index]
 
   def index
     @results = @q.result
@@ -9,13 +9,13 @@ class Admin::StaffsController < ApplicationController
 
   def show
     gon.categories = []
-    myAchievement = []
+    my_achievement = []
     total = []
     gon.myARates = []
     gon.myARatesMinus = []
 
     gon.categories.clear
-    myAchievement.clear
+    my_achievement.clear
     total.clear
     gon.myARates.clear
     gon.myARatesMinus.clear
@@ -23,19 +23,25 @@ class Admin::StaffsController < ApplicationController
     @categories = Category.all
     gon.categories = @categories.pluck(:name).map(&:to_s)
 
-    @myAchievement = AchievementRate.where(staff_id: @staff).where(status: true)
+    @my_achievement = AchievementRate.where(staff_id: @staff).where(status: true)
 
     @categories.each do |category|
       total << category.questions.count
-      myAchievement << @myAchievement.where(category_id: category.id).count
+      my_achievement << @my_achievement.where(category_id: category.id).count
     end
 
     @categories.length.times do |i|
-      gon.myARates << ( myAchievement[i] * 100 / total[i] rescue 0 )
-      gon.myARatesMinus << ( 100 - myAchievement[i] * 100 / total[i] rescue 100 )
+      gon.myARates << begin
+                         my_achievement[i] * 100 / total[i]
+                      rescue
+                        0
+                       end
+      gon.myARatesMinus << begin
+                              100 - my_achievement[i] * 100 / total[i]
+                           rescue
+                             100
+                            end
     end
-
-
   end
 
   def update
@@ -58,6 +64,6 @@ class Admin::StaffsController < ApplicationController
   end
 
   def staff_params
-    params.require(:staff).permit(:status,:employ_number)
+    params.require(:staff).permit(:status, :employ_number)
   end
 end

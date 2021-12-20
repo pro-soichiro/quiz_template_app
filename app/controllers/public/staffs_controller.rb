@@ -1,29 +1,29 @@
 class Public::StaffsController < ApplicationController
   before_action :authenticate_staff!
-  before_action :ensure_staff, only: [:show,:edit,:update]
+  before_action :ensure_staff, only: [:show, :edit, :update]
 
   def index
-    wrong_answers = AchievementRate.where(staff_id: current_staff).where(status: false).order(:category_id)
+    wrong_answers = AchievementRate.where(staff_id: current_staff,
+                                          status: false).order(:category_id)
     @wrong_answers = wrong_answers.page(params[:page]).per(10)
     @wrong_answers_count = wrong_answers.count
-
   end
 
   def show
     @categories = Category.all
 
     # 誤答問題数
-    @achievement_rates_count = AchievementRate.where(staff_id: current_staff).where(status: false).count
+    @achievement_rates_count = AchievementRate.where(staff_id: current_staff,
+                                                     status: false).count
 
     gon.categories = @categories.pluck(:name).map(&:to_s)
     gon.myARates = []
     gon.myARatesMinus = []
 
     @categories.each do |category|
-      gon.myARates << ( @staff.achievement_rates(category.id) )
-      gon.myARatesMinus << ( 100 - @staff.achievement_rates(category.id) )
+      gon.myARates << (@staff.achievement_rates(category.id))
+      gon.myARatesMinus << (100 - @staff.achievement_rates(category.id))
     end
-
   end
 
   def edit

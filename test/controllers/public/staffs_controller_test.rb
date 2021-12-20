@@ -15,5 +15,4 @@ class Public::StaffsControllerTest < ActionDispatch::IntegrationTest
     get public_staffs_edit_url
     assert_response :success
   end
-
 end

@@ -15,11 +15,13 @@ RSpec.describe 'CorrectAnswerRateモデルのテスト', type: :model do
         expect(CorrectAnswerRate.reflect_on_association(:question).macro).to eq :belongs_to
       end
     end
+
     context 'Staffモデルとの関係' do
       it '1:Nとなっている' do
         expect(CorrectAnswerRate.reflect_on_association(:staff).macro).to eq :belongs_to
       end
     end
+
     context 'Categoryモデルとの関係' do
       it '1:Nとなっている' do
         expect(CorrectAnswerRate.reflect_on_association(:category).macro).to eq :belongs_to

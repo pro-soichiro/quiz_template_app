@@ -10,5 +10,4 @@ class Admin::AchievementRatesControllerTest < ActionDispatch::IntegrationTest
     get admin_achievement_rates_update_url
     assert_response :success
   end
-
 end

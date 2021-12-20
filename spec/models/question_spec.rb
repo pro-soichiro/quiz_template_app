@@ -42,11 +42,13 @@ RSpec.describe 'Questionモデルのテスト', type: :model do
         expect(Question.reflect_on_association(:choices).macro).to eq :has_many
       end
     end
+
     context 'AchievementRateモデルとの関係' do
       it '1:Nとなっている' do
         expect(Question.reflect_on_association(:achievement_rates).macro).to eq :has_many
       end
     end
+
     context 'CorrectAnswerRateモデルとの関係' do
       it '1:Nとなっている' do
         expect(Question.reflect_on_association(:correct_answer_rates).macro).to eq :has_many

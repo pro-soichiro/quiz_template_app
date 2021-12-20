@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_16_123245) do
+ActiveRecord::Schema.define(version: 2021_12_20_085613) do
 
   create_table "achievement_rates", force: :cascade do |t|
     t.integer "staff_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_12_16_123245) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category_id"
+    t.index ["staff_id", "question_id"], name: "index_achievement_rates_on_staff_id_and_question_id", unique: true
   end
 
   create_table "admins", force: :cascade do |t|
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_12_16_123245) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "choices", force: :cascade do |t|
@@ -53,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_12_16_123245) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category_id"
+    t.index ["staff_id", "question_id"], name: "index_correct_answer_rates_on_staff_id_and_question_id", unique: true
   end
 
   create_table "questions", force: :cascade do |t|

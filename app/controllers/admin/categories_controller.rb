@@ -1,6 +1,6 @@
 class Admin::CategoriesController < ApplicationController
   before_action :authenticate_admin!
-  before_action :ensure_category, only: [:edit,:update,:destroy]
+  before_action :ensure_category, only: [:edit, :update, :destroy]
 
   def index
     @category = Category.new
@@ -21,8 +21,11 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def update
-    @category.update(category_params) if @category
-    redirect_to admin_categories_path
+    if @category.update(category_params)
+      redirect_to admin_categories_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -31,6 +34,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   private
+
   def category_params
     params.require(:category).permit(:name)
   end
@@ -38,5 +42,4 @@ class Admin::CategoriesController < ApplicationController
   def ensure_category
     @category = Category.find(params[:id])
   end
-
 end

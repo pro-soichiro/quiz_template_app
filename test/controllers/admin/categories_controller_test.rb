@@ -20,5 +20,4 @@ class Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     get admin_categories_update_url
     assert_response :success
   end
-
 end

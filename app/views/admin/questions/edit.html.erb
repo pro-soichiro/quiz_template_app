@@ -1,63 +1,6 @@
 <section class="inner">
 	<h2 class="section-ttl">問題 編集</h2>
-	<%= form_with model: @question, url: admin_question_path, local: true do |f| %>
-		<%= render 'layouts/error_messages', resource: @question %>
-		<table class="question_form">
-			<thead>
-				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>カテゴリ</td>
-					<td colspan="3"><%= f.collection_select :category_id, Category.all, :id, :name %></td>
-				</tr>
-				<tr>
-					<td>問題文</td>
-					<td colspan="3"><%= f.text_area :question_text, rows: 3 %></td>
-				</tr>
-				<tr>
-					<td>画像</td>
-					<td colspan="2">
-						<span class="btn btn-file btn-info">
-							<%= f.label :image ,"ファイルを選択"  %>
-							<%= f.attachment_field :image %>
-						</span>
-					</td>
-				  <td class="flex">
-						<i class="fas fa-plus fa-2x"  id="add_choice_btn" ></i>
-						<i class="fas fa-minus fa-2x ml2 hidden" id="remove_choice_btn"></i>
-				  </td>
-				</tr>
-				<%= f.fields_for :choices do |choice| %>
-					<tr>
-						<td>選択肢</td>
-						<td><%= choice.check_box :is_answer %></td>
-					  <td>
-    				  <%= choice.text_field :choice_text %>
-				    	<% unless @choice_index <= 2 %>
-              	<%= link_to "削除", admin_choice_path(choice.object.id),method: :delete,class: "btn btn-danger" %>
-              <% end %>
-					  </td>
-				    <td>
-				    </td>
-					</tr>
-				<% end %>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>
-						<%= f.submit "保存する",class:"btn btn-success" %>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	<% end %>
+	<%= render 'form', question: @question, url: admin_question_path, submit: '保存' %>
 </section>
 
 <%= javascript_include_tag 'edit_change_choice_btn.js' %>

@@ -9,9 +9,9 @@ class Public::QuestionsController < ApplicationController
     session[:category] = Category.find(params[:id])
     @questions = Question.where(category_id: session[:category])
 
-    if @questions.count == 0 then
-      redirect_to({action: :categories},{alert: '問題がまだありません。'})
-    elsif @questions.count <= 10 then
+    if @questions.count == 0
+      redirect_to({ action: :categories }, { alert: '問題がまだありません。' })
+    elsif @questions.count <= 10
       @max = @questions.count
     else
       @max = 10
@@ -20,10 +20,10 @@ class Public::QuestionsController < ApplicationController
 
   def start
     total = params[:number].to_i
-    all = Question.where(category_id: session[:category]["id"]).map {|x| x.id}
-    session[:questions] = all.sort_by{rand}[0..(total-1)]
-    session[:total]   = total
-    session[:selected]  = []
+    all = Question.where(category_id: session[:category]["id"]).map { |x| x.id }
+    session[:questions] = all.sort_by { rand }[0..(total - 1)]
+    session[:total] = total
+    session[:selected] = []
     session[:current] = 0
     session[:correct] = 0
     redirect_to action: :answer
@@ -39,11 +39,10 @@ class Public::QuestionsController < ApplicationController
     end
 
     @question = Question.find(session[:questions][@current])
-    @choices = @question.choices.sort_by{rand}
+    @choices = @question.choices.sort_by { rand }
 
     session[:question] = @question
     session[:choices] = @choices
-
   end
 
   def sub_result
@@ -53,7 +52,7 @@ class Public::QuestionsController < ApplicationController
     @total   = session[:total]
 
     # answer画面でstaffが選択した値を取得し、integerに変換し格納
-    @selected_choice_ids = params[:selected_choices].map {|x| x.to_i }
+    @selected_choice_ids = params[:selected_choices].map { |x| x.to_i }
 
     @question = Question.find(session[:question]["id"])
     @choices  = session[:choices]
@@ -67,9 +66,9 @@ class Public::QuestionsController < ApplicationController
 
     # 正解と解答のis_answerの数をカウント
     @all_correct_count = 0
-    @choices.each do |choice| @all_correct_count += 1 if choice["is_answer"] end
+    @choices.each { |choice| @all_correct_count += 1 if choice["is_answer"] }
     @choice_true_count = 0
-    @selected_choices.each do |choice| @choice_true_count += 1 if choice.is_answer end
+    @selected_choices.each { |choice| @choice_true_count += 1 if choice.is_answer }
 
     # 正誤判定
 
@@ -80,7 +79,8 @@ class Public::QuestionsController < ApplicationController
     @correct_answer_rate.category_id = @question["category_id"]
 
     # 達成率
-    @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,question_id: @question["id"])
+    @achievement_rate = AchievementRate.find_or_initialize_by(staff_id: current_staff.id,
+                                                              question_id: @question["id"])
     @achievement_rate.category_id = @question["category_id"]
 
     if @all_correct_count == @choice_true_count
@@ -107,12 +107,9 @@ class Public::QuestionsController < ApplicationController
     end
     @achievement_rate.save
     @correct_answer_rate.save
-
   end
 
-
   def result
-
     @correct = session[:correct]
     @total   = session[:total]
 
@@ -121,13 +118,11 @@ class Public::QuestionsController < ApplicationController
     @selected = session[:selected]
 
     @score = @correct * 100 / @total
-
   end
 
   private
+
   def question_params
-    params.require(:category).premit(:id,:category_id)
+    params.require(:category).premit(:id, :category_id)
   end
-
-
 end

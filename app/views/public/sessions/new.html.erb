@@ -1,6 +1,7 @@
 <section class="inner">
   <h2 class="section-ttl">ログイン</h2>
   <%= form_with model: @staff, url: staff_session_path, local: true do |f| %>
+  <%= render 'layouts/error_messages', resource: @staff %>
     <table class="staff_entrance">
       <thead>
         <th></th>

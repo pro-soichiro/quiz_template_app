@@ -1,4 +1,9 @@
 <section class="inner">
   <h2 class="section-ttl">問題カテゴリ</h2>
-  <%= render 'form', category: @category, url: admin_category_path, submit: '変更' %>
+  <%= form_with(model: @category, url: admin_category_path, local: true) do |f| %>
+      <%= render 'layouts/error_messages', resource: @category %>
+      <%= f.label :name, 'カテゴリ名:' %>
+      <%= f.text_field :name %>
+      <%= f.submit '変更' ,class: "btn btn-success ml2" %>
+    <% end %>
 </section>
