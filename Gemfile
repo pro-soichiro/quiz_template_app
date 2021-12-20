@@ -81,3 +81,8 @@ gem 'roo'
 gem 'font-awesome-sass'
 gem 'rails-i18n'
 gem 'ransack'
+
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
