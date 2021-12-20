@@ -483,3 +483,9 @@ div.questions_content {
 .hidden {
   display: none;
 }
+.csv-import {
+  margin: 20px 0 60px;
+  form[action="/admin/questions/import"] {
+    margin-right: 40px;
+  }
+}

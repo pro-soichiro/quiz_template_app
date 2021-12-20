@@ -1,4 +1,6 @@
 class Admin::ChoicesController < ApplicationController
+  before_action :authenticate_admin!
+
   def destroy
     choice = Choice.find_by(id: params[:id])
     # binding.pry

@@ -1,4 +1,6 @@
 class Public::AchievementRatesController < ApplicationController
+  before_action :authenticate_staff!
+
   def create
   end
 

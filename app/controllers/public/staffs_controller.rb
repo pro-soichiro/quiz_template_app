@@ -1,5 +1,5 @@
 class Public::StaffsController < ApplicationController
-  # before_action :authenticate_public!
+  before_action :authenticate_staff!
   before_action :ensure_staff, only: [:show,:edit,:update]
 
   def index

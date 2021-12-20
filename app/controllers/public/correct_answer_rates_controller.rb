@@ -1,4 +1,6 @@
 class Public::CorrectAnswerRatesController < ApplicationController
+  before_action :authenticate_staff!
+
   def index
     staffs = Staff.all
     @categories = Category.all

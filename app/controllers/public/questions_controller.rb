@@ -1,5 +1,5 @@
 class Public::QuestionsController < ApplicationController
-  # before_action :authenticate_public!
+  before_action :authenticate_staff!
 
   def categories
     @categories = Category.all
