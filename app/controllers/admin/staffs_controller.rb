@@ -4,7 +4,8 @@ class Admin::StaffsController < ApplicationController
   before_action :set_q, only: [:index]
 
   def index
-    @results = @q.result
+    # @results = @q.result
+    @results = @q.result.page(params[:page]).per(10)
   end
 
   def show
@@ -14,14 +15,8 @@ class Admin::StaffsController < ApplicationController
     gon.myARates = []
     gon.myARatesMinus = []
 
-    gon.categories.clear
-    my_achievement.clear
-    total.clear
-    gon.myARates.clear
-    gon.myARatesMinus.clear
-
     @categories = Category.all
-    gon.categories = @categories.pluck(:name).map(&:to_s)
+    gon.categories = @categories.map(&:name)
 
     @my_achievement = AchievementRate.where(staff_id: @staff).where(status: true)
 
