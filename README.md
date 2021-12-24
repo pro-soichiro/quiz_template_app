@@ -49,7 +49,7 @@
 
 ## 開発環境
 - OS：Linux(CentOS)
-- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- 言語：HTML,CSS,JavaScript,Ruby,SQL,Sass
 - フレームワーク：Ruby on Rails
-- JSライブラリ：jQuery
+- JSライブラリ：jQuery,Chart.js
 - IDE：Cloud9
