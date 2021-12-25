@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Admin　管理者アカウント
-admin = Admin.new(:email => 'admin@sample.com',:password => 'password')
+admin = Admin.new(:email => 'admin@admin.com',:password => 'password')
 admin.save!
 
 # Staff スタッフアカウント
