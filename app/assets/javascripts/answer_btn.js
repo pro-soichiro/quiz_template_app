@@ -1,14 +1,15 @@
 /* global $*/
 
-// 問題選択後、ボタンのdisabledを外す
-// $(document).on('turbolinks:load',function () {
+$('input[type=checkbox]').change(function() {
 
-
-  $('.choice').change(function() {
-    $('#answer_btn').prop('disabled', false);
+	if($('input[type=checkbox]').is(':checked')){
+	  $('#answer_btn').prop('disabled', false);
     $('#answer_btn').removeClass("btn-disabled");
     $('#answer_btn').addClass("btn-success");
+	}else{
+	  $('#answer_btn').prop('disabled', true);
+    $('#answer_btn').addClass("btn-disabled");
+    $('#answer_btn').removeClass("btn-success");
+	}
 
-  });
-
-// });
+});

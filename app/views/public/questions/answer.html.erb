@@ -9,14 +9,10 @@
       <%= @question.question_text %><br /><span class="fz14">(問題番号<%= @question.id %>)</span>
     </p>
     <%= form_with(url: {:controller => "questions", :action => "sub_result"},local: true) do |f| %>
-      <!--<ul>-->
         <% @choices.each do |choice| %>
-      	 <!--<li>-->
       		<%= check_box_tag 'selected_choices[]', choice.id , false,:id => "selected_#{choice.id}" ,class: "choice" %>
       		<%= f.label("selected_".concat(choice.id.to_s).to_sym, choice.choice_text ,class: "choice") %><br/>
-      	 <!--</li>-->
         <% end %>
-      <!--</ul>-->
   </div>
 	<%= f.submit("解答",class:"btn btn-disabled", disabled: true, id: "answer_btn") %>
   <% end %>
