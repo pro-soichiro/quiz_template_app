@@ -10,8 +10,20 @@
 admin = Admin.new(:email => 'admin@admin.com',:password => 'password')
 admin.save!
 
+person = Gimei.name
+Staff.create!(
+  email: "larry@wiegand-grady.org",
+  first_name: person.first.kanji,
+  first_name_kana: person.first.katakana,
+  last_name: person.last.kanji,
+  last_name_kana: person.last.katakana,
+  password: 'password',
+  password_confirmation: 'password',
+  current_sign_in_at: Faker::Time.between(from: DateTime.now - 30, to: DateTime.now),
+  sign_in_count: 10,
+)
 # Staff スタッフアカウント
-17.times do |n|
+16.times do |n|
   person = Gimei.name
   sign_in_count_array = (1..50).to_a
   Staff.create!(

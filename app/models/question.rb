@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  extend OrderAsSpecified
+
   belongs_to :category
 
   has_many :choices,                dependent: :destroy

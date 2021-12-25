@@ -113,7 +113,7 @@ class Public::QuestionsController < ApplicationController
     @correct = session[:correct]
     @total   = session[:total]
 
-    @questions = Question.where(id: session[:questions])
+    @questions = Question.where(id: session[:questions]).order_as_specified(id: session[:questions])
 
     @selected = session[:selected]
 
