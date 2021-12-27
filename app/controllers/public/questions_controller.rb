@@ -46,7 +46,6 @@ class Public::QuestionsController < ApplicationController
   end
 
   def sub_result
-    p params[:selected_choices]
     session[:current] += 1
 
     @current = session[:current]
