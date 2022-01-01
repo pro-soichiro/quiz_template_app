@@ -17,3 +17,15 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+
+/* global $*/
+
+$(document).on("turbolinks:load", function() {
+  $(function() {
+    $('.menu-trigger').on('click', function(event) {
+      event.preventDefault();
+      $(this).toggleClass('active');
+      $('#sp-menu').fadeToggle();
+    });
+  });
+});

@@ -24,7 +24,6 @@ $(document).on('turbolinks:load',function () {
           				           id="question_choices_attributes_${index}_choice_text">
           				  </td>
           			    <td></td>
-          	        <td></td>
           				</tr>`;
     return html;
   }
