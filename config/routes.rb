@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'homes#about'
     get 'homes/about'
-    resources :staffs, only: [:show, :index, :edit, :update]
+    get 'staffs/wrong_answer'
+    resources :staffs, only: [:show, :edit, :update]
     get 'questions/categories'
     resources :questions, only: [:new]
     post "questions/start"

@@ -1,8 +1,8 @@
 class Public::StaffsController < ApplicationController
   before_action :authenticate_staff!
-  before_action :ensure_staff, only: [:show, :edit, :update]
+  before_action :ensure_staff, only: [:edit, :update]
 
-  def index
+  def wrong_answer
     wrong_answers = AchievementRate.where(staff_id: current_staff,
                                           status: false).order(:category_id)
     @wrong_answers = wrong_answers.page(params[:page]).per(10)
@@ -11,6 +11,7 @@ class Public::StaffsController < ApplicationController
 
   def show
     @categories = Category.all
+    @staff = Staff.find(current_staff.id)
 
     # 誤答問題数
     @achievement_rates_count = AchievementRate.where(staff_id: current_staff,
