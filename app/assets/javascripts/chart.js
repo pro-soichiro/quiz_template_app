@@ -2,7 +2,7 @@
 /* global gon*/
 /* global Chart*/
 
-// document.addEventListener("turbolinks:load", function() {
+
   document.addEventListener('DOMContentLoaded',function(){
 
     var categories = gon.categories;
@@ -36,6 +36,7 @@
     });
 
     var ctx = document.getElementById("myChart").getContext('2d');
+
 
     var myChart = new Chart(ctx, {
       type: 'horizontalBar',
@@ -77,4 +78,3 @@
       }
     });
   });
-// });

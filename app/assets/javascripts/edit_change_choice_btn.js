@@ -24,20 +24,19 @@ $(document).on('turbolinks:load',function () {
           				           id="question_choices_attributes_${index}_choice_text">
           				  </td>
           			    <td></td>
-          	        <td></td>
           				</tr>`;
     return html;
   }
 
   // idやinputを作るための変数
   let input_index = gon.choice_index;
-  
+
   // デフォルトで消す
   function hidden() {
     $('#remove_choice_btn').addClass("hidden");
   }
   hidden();
-  
+
 
   function check_input_index(input_index){
     if (input_index == gon.choice_index ) {

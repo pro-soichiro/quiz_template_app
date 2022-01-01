@@ -1,4 +1,4 @@
-<section class="inner flex">
+<section class="admin-questions-index inner flex">
 	<div class="sidebar">
 		<h3>カテゴリ一覧</h3>
 	  <% @categories.each do |category| %>
@@ -44,14 +44,14 @@
 				<tbody>
 					<% @questions.each do |question| %>
 						<tr>
-							<td><%= question.id %></td>
-							<td>
+							<td data-label="問題番号" ><%= question.id %></td>
+							<td data-label="問題文" >
 								<% if question.image_id %>
 									<%= attachment_image_tag question,:image, :fill, 100, 100,format: 'jpeg' %><br />
 								<% end %>
 								<%= question.question_text %>
 							</td>
-							<td>
+							<td data-label="選択肢" />
 							  <% question.choices.each do |choice| %>
 							  	<% if choice.is_answer? %>
 							  		<p class="correct">正解<%= choice.choice_text %>
@@ -62,12 +62,12 @@
 			          <% end %>
 							</td>
 							<% unless params[:category] %>
-							<td><%= question.category.name %></td>
+							<td data-label="カテゴリ"><%= question.category.name %></td>
 							<% end %>
 							<td class="text-center">
 							  <%= link_to "編集", edit_admin_question_path(question),
 							  										data: {"turbolinks" => false},
-							  										class: "btn btn-caution mb2" %><br/>
+							  										class: "btn btn-caution mb2" %><br />
 							  <%= link_to "削除", admin_question_path(question),
 							  										method: :delete,
 							  										class: "btn btn-danger",

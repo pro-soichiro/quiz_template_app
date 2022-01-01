@@ -56,24 +56,27 @@ select {
 header {
   width: 100vw;
   position: fixed;
-  z-index: 100;
+  z-index: 9;
   top: 0;
   left: 0;
   background-color: #B6D7A8;
   * {
     position: relative;
-    z-index: 100;
+    z-index: 9;
   }
   .header-content {
     display: flex;
     justify-content: space-between;
-    width: 960px;
+    max-width: 960px;
     margin: 0 auto;
     .logo {
       padding: 10px 20px;
-      font-family: "Century";
       font-size: 20px;
       text-decoration: none;
+      color: black;
+    }
+    p {
+      padding: 10px 20px 10px 10px;
     }
     ul {
       justify-content: flex-end;
@@ -111,7 +114,7 @@ header {
   }
 }
 main {
-  padding: 100px 0;
+  padding: 70px 0;
   flex: 1;
 }
 footer {
@@ -168,15 +171,6 @@ table.has_border_bottom {
     }
   }
 }
-div.staff_info_container{
-  width: 100%;
-  div:first-child{
-    width: 55%;
-  }
-  div:last-child{
-    width: 40%;
-  }
-}
 table.admin_staff_index {
   thead {
     tr {
@@ -201,15 +195,37 @@ table.admin_staff_index {
     }
   }
 }
-table.staff_info {
-  width: 100%;
-  thead {
-    th:first-child {
-      width: 60%;
+div.staff_info_container{
+  display: flex;
+  flex-wrap: wrap;
+  table.staff_info {
+    thead {
+      th:first-child {
+        width: 40%;
+      }
+      th:last-child {
+        width: 60%;
+      }
     }
-    th:last-child {
-      width: 40%;
+    tbody {
+      tr {
+        td {
+          padding: 5px;
+        }
+      }
     }
+  }
+  div:nth-child(1) {
+    flex-basis: 60%;
+  }
+  table:nth-child(2) {
+    flex-basis: 40%;
+  }
+  table:nth-child(3) {
+    flex-basis: 60%;
+  }
+  table:nth-child(4) {
+    flex-basis: 40%;
   }
 }
 table.category_info {
@@ -280,21 +296,18 @@ table.questions {
   }
 }
 table.question_form {
-  width: 600px;
+  width: 100%;
+  // width: 600px;
   thead {
     tr {
-      th {
-        // width: 280px;
-      }
       th:first-child {
         width: 20%;
       }
-      th:nth-child(2),
-      th:nth-child(4) {
+      th:nth-child(2) {
         width: 10%;
       }
       th:nth-child(3) {
-        width: 60%;
+        width: 40%;
       }
     }
   }
@@ -330,7 +343,7 @@ table.staff_entrance {
   width: 100%;
   thead {
     th:first-child {
-      width: 30%;
+      // width: 30%;
     }
   }
 }
@@ -352,23 +365,23 @@ table.wrong_answer_index {
   thead {
     tr {
       th:nth-child(1) {
-        width: 120px;
-      }
-      th:nth-child(2) {
         width: 60px;
       }
-      th:nth-child(3) {
+      th:nth-child(2) {
         width: 50%;
       }
-      th:last-child {
+      th:nth-child(3) {
         width: 180px;
+      }
+      th:last-child {
+        width: 120px;
       }
     }
   }
   tbody {
     tr {
       td:first-child,
-      td:nth-child(2),
+      td:nth-child(3),
       td:last-child {
         text-align: center;
       }
@@ -487,9 +500,298 @@ div.questions_content {
 .hidden {
   display: none;
 }
-.csv-import {
-  margin: 20px 0 60px;
-  form[action="/admin/questions/import"] {
-    margin-right: 40px;
+
+
+/* ---------------------------- */
+/* ---- ハンバーガーアイコン ---- */
+/* ---------------------------- */
+
+#hm-icon {
+  position: fixed;
+  right: 10px;
+  top: 0px;
+  z-index: 10;
+  display: none;
+}
+
+.menu-trigger {
+  position: relative;
+  width: 30px;
+  height: 20px;
+  display: inline-block;
+  transition: all .4s;
+  box-sizing: border-box;
+  span {
+    display: inline-block;
+    transition: all .4s;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 4px;
   }
+  span:nth-child(1) {
+    top: 6px;
+  }
+  span:nth-child(2) {
+    top: 16px;
+  }
+  span:nth-child(3) {
+    bottom: -10px;
+  }
+}
+.menu-trigger.active span:nth-child(1) {
+  -webkit-transform: translateY(20px) rotate(-45deg);
+  transform: translateY(10px) rotate(-45deg);
+  background-color: #000;
+}
+.menu-trigger.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-trigger.active span:nth-child(3) {
+  -webkit-transform: translateY(-20px) rotate(45deg);
+  transform: translateY(-10px) rotate(45deg);
+  background-color: #000;
+}
+
+
+
+
+// @media screen and (max-width: 768px) {
+@media screen and (max-width: 812px) {
+
+  // header
+
+  header div.header-content {
+    display: inline-block;
+    a {
+      display: block;
+      padding-top: 10px;
+    }
+    p {
+      padding: 0 20px 10px;
+    }
+  }
+
+  /* ---- ハンバーガーアイコン ---- */
+
+  #hm-icon {
+    display: block;
+  }
+
+  /* ------ spメニュー ------ */
+
+  #sp-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    width: 40%;
+    min-height: 100%;
+    z-index: 10;
+    ul {
+      display: block;
+      margin: 60px auto 0;
+      a {
+        margin: 0 auto;
+        width: 100%;
+      }
+    }
+  }
+
+
+  // staff login
+  table.staff_entrance {
+    tbody {
+      width: 100%;
+      td {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  // public&admin staffs/show.html.erb
+
+  div.staff_info_container{
+    .canvas-container {
+      width: 100%;
+    }
+    table.staff_info {
+      thead {
+        th:first-child {
+          width: 40%;
+        }
+        th:last-child {
+          width: 60%;
+        }
+      }
+      tbody {
+        tr {
+          td {
+            padding: 5px;
+          }
+        }
+      }
+    }
+    div:nth-child(1),
+    table:nth-child(2),
+    table:nth-child(3),
+    table:nth-child(4) {
+      flex-basis: 100%;
+    }
+  }
+
+  // public staff index 誤答リスト
+  table.wrong_answer_index {
+    thead {
+      display: none;
+      th {
+        width: 100%;
+        display: block;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          display: block;
+          width: 100%;
+        }
+        td:first-child {
+          background: #B6D7A8;
+          font-weight: bold;
+          text-align: left;
+        }
+        td:last-child,
+        td:nth-child(3) {
+          text-align: left;
+        }
+        td:before {
+          content: attr(data-label);
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  // public ranking
+
+  .ranking-label {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  // public staff edit
+
+  table.staff_info_edit {
+    thead {
+      th {
+        width: 100%;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          display: block;
+        }
+        td:last-child {
+          padding: 0;
+        }
+      }
+      tr:last-child {
+        td:nth-child(1),
+        td:nth-child(2) {
+          padding: 0;
+        }
+      }
+    }
+  }
+
+
+  // admin staffs index
+  div.admin-staffs-index {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  // admin category index
+  table.category_info {
+    width: 100%;
+  }
+
+  // admin questions index
+  .admin-questions-index {
+    width: 100%;
+    display: block;
+    div.sidebar {
+      width: 100%;
+      margin: 0;
+    }
+    div.content {
+      width: 95%;
+      margin: 0 auto;
+      div:first-child {
+        display: block;
+        margin-bottom: 10px;
+      }
+      table.questions {
+        thead {
+          display: none;
+          th {
+            width: 100%;
+            display: block;
+          }
+        }
+        tbody {
+          td {
+            display: block;
+            width: 100%;
+          }
+          td:first-child {
+            background: #aaf;
+            font-weight: bold;
+          }
+          td:before {
+            content: attr(data-label);
+            font-weight: bold;
+            margin-right: 10px;
+          }
+          td:last-child {
+            display: flex;
+            justify-content: space-evenly;
+            a {
+              margin-bottom: 0;
+            }
+          }
+          tr td:last-child:before {
+            content: none;
+          }
+        }
+      }
+    }
+  }
+
+  // admin question form
+
+  table.question_form {
+  width: 100%;
+  tbody {
+    tr {
+      td {
+        padding: 3px;
+      }
+
+    }
+  }
+}
+  .inner {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+
 }

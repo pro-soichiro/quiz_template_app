@@ -3,30 +3,30 @@
   <table class="wrong_answer_index has_border_bottom">
     <thead>
       <tr>
-        <th>カテゴリ</th>
         <th>問題番号</th>
         <th>問題</th>
         <th>正解</th>
+        <th>カテゴリ</th>
       </tr>
     </thead>
     <tbody>
       <% @wrong_answers.each do |achievement_rate| %>
       <tr>
-        <td><%= achievement_rate.category.name %></td>
-        <td><%= achievement_rate.question_id %></td>
-        <td>
+        <td data-label="問題番号"><%= achievement_rate.question_id %></td>
+        <td data-label="問題文">
           <% if achievement_rate.question.image_id %>
             <%= attachment_image_tag achievement_rate.question,:image, :fill, 100, 100,format: 'jpeg' %><br />
           <% end %>
           <%= achievement_rate.question.question_text %>
         </td>
-        <td>
+        <td data-label="正解">
           <% achievement_rate.question.choices.each do |choice| %>
             <% if choice.is_answer %>
               <%= choice.choice_text %><br />
             <% end %>
           <% end %>
         </td>
+        <td data-label="カテゴリ"><%= achievement_rate.category.name %></td>
       </tr>
       <% end %>
     </tbody>

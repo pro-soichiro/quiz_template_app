@@ -1,12 +1,12 @@
 <section class="inner">
   <h2 class="section-ttl">
+    正答率ランキング<br />
     <% if @category %>
       <%= @category.name %>
     <% end %>
-    正答率ランキング
   </h2>
   <%= form_with(url: {controller: 'correct_answer_rates', action: 'index' },local: true) do |f| %>
-    <%= f.label(:category, "表示したいランキングのカテゴリを選んでください。") %>
+    <%= f.label(:category, "表示したいランキングのカテゴリを選んでください。" , class: "ranking-label") %>
     <%= f.collection_select :category, @categories ,:id,:name, {prompt: "総正答率",selected: @category_id} %>
   	<%= f.submit "表示",class: "btn btn-info" %>
   <% end %>
