@@ -21,7 +21,7 @@
           <div id="sp-menu">
           <ul class="flex">
             <li><%= link_to "マイページ", staff_path(current_staff), data: {"turbolinks" => false} %></li>
-            <li><%= link_to "問題を解く", questions_categories_path %></li>
+            <li><%= link_to "問題を解く", categories_questions_path %></li>
             <li><%= link_to "ランキング", correct_answer_rates_path %></li>
             <li><%= link_to "ログアウト", destroy_staff_session_path, method: :delete %></li>
           </ul>
