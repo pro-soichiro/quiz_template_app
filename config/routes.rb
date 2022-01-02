@@ -21,13 +21,16 @@ Rails.application.routes.draw do
     get 'homes/about'
     get 'staffs/wrong_answer'
     resources :staffs, only: [:show, :edit, :update]
-    get 'questions/categories'
-    resources :questions, only: [:new]
-    post "questions/start"
-    get 'questions/answer'
-    post 'questions/answer'
-    post 'questions/sub_result'
-    get 'questions/result'
+    resources :questions, only: [:new] do
+      collection do
+        get 'categories'
+        post "start"
+        get 'answer'
+        post 'answer'
+        post 'sub_result'
+        get 'result'
+      end
+    end
     resources :achievement_rates, only: [:create, :update]
     get 'correct_answer_rates/index', as: 'correct_answer_rates'
     post 'correct_answer_rates/index'

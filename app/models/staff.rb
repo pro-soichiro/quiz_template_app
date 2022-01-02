@@ -59,5 +59,6 @@ class Staff < ApplicationRecord
     rescue
       0
     end
+    correct_rates
   end
 end
