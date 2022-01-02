@@ -8,6 +8,12 @@ class Staff < ApplicationRecord
 
   has_many :achievement_rates, dependent: :destroy
   has_many :correct_answer_rates, dependent: :destroy
+
+  # 正解
+  has_many :correct_answers, ->{ where(correct_answer_rates: {status: true}) }, class_name:"CorrectAnswerRate"
+  # 誤答問題
+  has_many :wrong_answers, ->{ where(achievement_rates: {status: false}) }, class_name: "AchievementRate"
+
   attachment :image
 
   validates :last_name, presence: true, length: { minimum: 1, maximum: 4 }
@@ -46,18 +52,12 @@ class Staff < ApplicationRecord
 
   # 正答率メソッド
   def correct_rates(category_id = nil)
-    if category_id
-      correct_answer_rates = CorrectAnswerRate.where(staff_id: id).where(category_id: category_id)
-    else
-      correct_answer_rates = CorrectAnswerRate.where(staff_id: id)
-    end
-    all_count = correct_answer_rates.count
-    correct_count = correct_answer_rates.where(status: true).count
+    all_count = (category_id == nil)? correct_answer_rates.count : correct_answer_rates.where(category_id: category_id).count
+    correct_count = (category_id == nil)? correct_answers.count : correct_answers.where(category_id: category_id).count
     correct_rates = begin
-                      correct_count * 100 / all_count
-                    rescue
-                      0
-                    end
-    correct_rates
+      correct_count * 100 / all_count
+    rescue
+      0
+    end
   end
 end

@@ -3,19 +3,12 @@ class Public::StaffsController < ApplicationController
   before_action :ensure_staff, only: [:edit, :update]
 
   def wrong_answer
-    wrong_answers = AchievementRate.where(staff_id: current_staff,
-                                          status: false).order(:category_id)
-    @wrong_answers = wrong_answers.page(params[:page]).per(10)
-    @wrong_answers_count = wrong_answers.count
+    @wrong_answers = current_staff.wrong_answers.page(params[:page]).per(10).order(:category_id)
   end
 
   def show
     @categories = Category.all
     @staff = Staff.find(current_staff.id)
-
-    # 誤答問題数
-    @achievement_rates_count = AchievementRate.where(staff_id: current_staff,
-                                                     status: false).count
 
     gon.categories = @categories.map(&:name)
     gon.myARates = []
