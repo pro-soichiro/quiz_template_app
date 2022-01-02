@@ -55,8 +55,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>誤答問題数<%= @achievement_rates_count %>件</td>
-            <td><%= link_to "間違えた問題を見る", staffs_path, class:"btn btn-caution" %></td>
+            <td>誤答問題数<%= current_staff.wrong_answers.count %>件</td>
+            <td><%= link_to "間違えた問題を見る", staffs_wrong_answer_path, class:"btn btn-caution" %></td>
           </tr>
           <tr>
             <td><%= link_to edit_staff_path(@staff),class:"btn-edit" do %><i class="fas fa-cog fa-2x"></i><% end %></td>

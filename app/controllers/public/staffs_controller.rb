@@ -1,20 +1,14 @@
 class Public::StaffsController < ApplicationController
   before_action :authenticate_staff!
-  before_action :ensure_staff, only: [:show, :edit, :update]
+  before_action :ensure_staff, only: [:edit, :update]
 
-  def index
-    wrong_answers = AchievementRate.where(staff_id: current_staff,
-                                          status: false).order(:category_id)
-    @wrong_answers = wrong_answers.page(params[:page]).per(10)
-    @wrong_answers_count = wrong_answers.count
+  def wrong_answer
+    @wrong_answers = current_staff.wrong_answers.page(params[:page]).per(10).order(:category_id)
   end
 
   def show
     @categories = Category.all
-
-    # 誤答問題数
-    @achievement_rates_count = AchievementRate.where(staff_id: current_staff,
-                                                     status: false).count
+    @staff = Staff.find(current_staff.id)
 
     gon.categories = @categories.map(&:name)
     gon.myARates = []

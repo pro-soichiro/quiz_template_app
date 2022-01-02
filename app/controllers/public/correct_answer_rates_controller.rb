@@ -4,9 +4,11 @@ class Public::CorrectAnswerRatesController < ApplicationController
   def index
     staffs = Staff.all
     @categories = Category.all
-    @category_id = params[:category]
-    if params[:category]
+    if params[:category].present?
       @category = @categories.find(params[:category])
+      @category_id = params[:category]
+    else
+      @category_id = nil
     end
     # ランキングのためにidを入れ替える
     staffs_hash = staffs.map { |staff| [staff.id, staff.correct_rates(@category_id)] }.to_h
