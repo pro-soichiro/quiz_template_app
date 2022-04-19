@@ -1,0 +1,6 @@
+<% if choice.is_answer? %>
+	<p class="correct">正解<%= choice.choice_text %>
+<% else %>
+	<p><%= choice.choice_text %>
+<% end %>
+</p>
