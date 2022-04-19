@@ -5,8 +5,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :staffs, only: [:index, :show, :update]
-    resources :questions, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :categories, only: [:index, :create, :edit, :update, :destroy]
+    resources :questions, except: [:show]
+    resources :categories, except: [:new, :show]
     resources :correct_answer_rates, only: [:create]
     resources :achievement_rates, only: [:create, :update]
   end
