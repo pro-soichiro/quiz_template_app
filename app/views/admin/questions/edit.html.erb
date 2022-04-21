@@ -1,6 +1,6 @@
 <section class="inner">
 	<h2 class="section-ttl">問題 編集</h2>
-	<%= render 'form', question: @question, url: admin_question_path, submit: '保存' %>
+	<%= render 'admin/questions/form', question: @question, submit: '保存' %>
 </section>
 
 <%= javascript_include_tag 'edit_change_choice_btn.js' %>

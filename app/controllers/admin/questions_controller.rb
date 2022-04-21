@@ -22,7 +22,7 @@ class Admin::QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    4.times { @question.choices.build }
+    4.times { @question.choices.new }
   end
 
   def create
