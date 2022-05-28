@@ -15,7 +15,6 @@ class Admin::StaffsController < ApplicationController
     gon.myARatesMinus = []
 
     @categories = Category.all
-    # gon.categories = @categories.map(&:name)
     gon.categories = Category.pluck(:name)
 
     @my_achievement = AchievementRate.where(staff_id: @staff).where(status: true)
